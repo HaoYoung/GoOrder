@@ -1,0 +1,56 @@
+Navbar.Brand {
+    display: flex;
+}
+
+header {
+    background: #FFD700;
+    height: 70px;
+}
+
+a.logo {
+    font-size:30px; 
+    font-weight: 700; 
+    font-family: 'Pacifico', cursive; 
+    color: blue;
+}
+
+ul {
+    width: 80%;
+}
+
+li.search {
+    padding-right: 20px; 
+    width: 50%;
+}
+
+.nav-bg {
+    background: #48D1CC;
+}
+
+.btn-class {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-right: 100px;
+    color: red;
+}
+
+
+.justify-content-end {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.search-bar {
+    display: flex;
+    justify-content: center;
+    padding-left: 50px;
+}
+
+.navbar-brand {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.nav-item {
+    cursor: pointer;
+}
