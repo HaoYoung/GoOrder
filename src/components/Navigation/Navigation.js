@@ -28,7 +28,7 @@ class Navigation extends React.Component {
                             Restaurant
                         </NavItem>
                         <NavItem eventKey={3} href="#" onClick={() => onRoleChange('driver')}>
-                            Driver
+                           Driver
                         </NavItem>
                    </Nav>
                 </Navbar.Collapse>

@@ -161,7 +161,6 @@ class App extends Component {
     
     loadRestaurant = (data) => {
         this.setState({restaurants: data});
-        console.log(this.state.restaurants[0].name);
     }
     
     
@@ -180,6 +179,7 @@ class App extends Component {
     
   render() {
     const { isSignedIn, route, role } = this.state;
+    
     return (
       <div className='App'>
          { isSignedIn === false // before login
@@ -218,7 +218,7 @@ class App extends Component {
                             </div>
                             <div className='pl4 w-80'>
                                 <CFoodBar />
-                                <CShowRest />
+                                <CShowRest rests={this.state.restaurants}/>
                             </div>
                         </div>
                     </div>
@@ -232,15 +232,3 @@ class App extends Component {
 }
 
 export default App;
-
-/*
-    <Navigation />
-          <div className="row" style={{height: 1000}}>
-              <div className="col-sm-3 bg-light-gray side-bar" style={{height: 1000}}>
-                <SideBar />
-              </div>
-              <div className="col-sm-9 bg-light-yellow" style={{height: 1000}}>
-                <FoodBar />
-              </div>
-          </div>
-*/

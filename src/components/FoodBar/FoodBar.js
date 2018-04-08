@@ -4,7 +4,7 @@ import './FoodBar.css';
 class FoodBar extends React.Component {
     render(){ 
         return (
-            <div>
+            <div className='container-fluid'>
                 <div className="row mt3 h4">
                     <div className='card'>
                       <p className='pointer link dim black' id="chinese-food">
@@ -61,6 +61,9 @@ class FoodBar extends React.Component {
                        <p className='f4'>Dessert</p>
                       </p>
                     </div>
+                </div>
+                <div className="row mt2" id="filter-container">
+                
                 </div>
             </div>
         );
