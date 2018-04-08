@@ -136,7 +136,8 @@ const initialState = {
         email: '',
         phone: '',
         joined: ''
-    }
+    },
+    restaurants: []
 }
 
 class App extends Component {
@@ -159,10 +160,10 @@ class App extends Component {
     }
     
     loadRestaurant = (data) => {
-        this.setState({
-            
-        })
+        this.setState({restaurants: data});
+        console.log(this.state.restaurants[0].name);
     }
+    
     
     onRouteChange = (route) => {
         if (route === 'signout') {
@@ -188,7 +189,7 @@ class App extends Component {
                  { role === 'customer'
                     ? (
                         route === 'signin'
-                        ? <CSignin loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
+                        ? <CSignin loadUser={this.loadUser} onRouteChange={this.onRouteChange} loadRestaurant={this.loadRestaurant}/>
                         : <CRegister loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
                       )
                     : (
