@@ -148,6 +148,15 @@ const initialState = {
         type: '',
         joined: ''
     },
+    driver: {
+        id: '',
+        fname: '',
+        lname: '',
+        email: '',
+        phone: '',
+        dlnum: '',
+        joined: ''
+    },
     restaurants: []
 }
 
@@ -184,7 +193,7 @@ class App extends Component {
         })
     }
     
-    loadRestaurant = (data) => {
+    loadRestaurants = (data) => {
         this.setState({restaurants: data});
     }
     
@@ -214,7 +223,7 @@ class App extends Component {
                  { role === 'customer'
                     ? (
                         route === 'signin'
-                        ? <CSignin loadUser={this.loadUser} onRouteChange={this.onRouteChange} loadRestaurant={this.loadRestaurant}/>
+                        ? <CSignin loadUser={this.loadUser} onRouteChange={this.onRouteChange} loadRestaurant={this.loadRestaurants}/>
                         : <CRegister loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
                       )
                     : (
@@ -251,7 +260,7 @@ class App extends Component {
                 : (
                     route === 'rest-home'
                     ? <div>
-                        <RSideNav profile={this.state.rest}/>
+                        <RSideNav profile={this.state.rest} loadRest={this.loadRest}/>
                       </div>
                     : <div>
                         

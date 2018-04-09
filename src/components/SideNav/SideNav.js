@@ -6,33 +6,63 @@ class SideNav extends React.Component {
     
     constructor(props) {
         super(props);
+        const { profile } = this.props;
         this.state = {
             showSideNav: false,
             editProfile: false,
-            addFood: false
+            addFood: false,
+            id: profile.id,
+            name: profile.name,
+            type: profile.type,
+            email: profile.email,
+            phone: profile.phone,
+            imgurl: profile.imgurl
         }
     }
     
-    closeSideNav = () => {
-        this.setState({showSideNav: false});
+    closeSideNav = () => { this.setState({showSideNav: false}) }
+    
+    openSideNav = (data) => { 
+        this.setState({
+            showSideNav: true
+        })
     }
     
-    openSideNav = () => {
-        this.setState({showSideNav: true});
-    }
+    showProfile = () => { this.setState({editProfile: true}) }
     
-    showProfile = () => {
-        this.setState({editProfile: true});
-        console.log(this.state.editProfile);
-    }
+    closeProfile = () => { this.setState({editProfile: false}) }
     
-    closeProfile = () => {
-        this.setState({editProfile: false});
-        console.log(this.state.editProfile);
+    onNameChange = (event) => { this.setState({name: event.target.value}) }
+    onEmailChange = (event) => { this.setState({email: event.target.value}) }
+    OnTypeChange = (event) => { this.setState({type: event.target.value}) }
+    OnPhoneChange = (event) => { this.setState({phone: event.target.value}) }
+    OnImgUrlChange = (event) => { this.setState({imgurl: event.target.value}) }
+    
+    OnProfileUpdate = () => {
+        fetch('https://go-order-api.herokuapp.com/restaurant_profile', {
+            method: 'post',
+            headers: {'Content-type': 'application/json'},
+            body: JSON.stringify({
+                id: this.state.id,
+                name: this.state.name,
+                type: this.state.type,
+                email: this.state.email,
+                phone: this.state.phone,
+                imgurl: this.state.imgurl
+            })
+        })
+        .then(response => response.json())
+        .then(user => {
+            if(user.id){
+                this.props.loadRest(user);
+                console.log(user);
+            }
+        })
     }
     
     render(){ 
-        const { profile } = this.props;
+        const { name, type, email, phone, imgurl } = this.state;
+        
         return (
             <div className='w-100 h-100'>
                 { this.state.showSideNav === true
@@ -48,36 +78,36 @@ class SideNav extends React.Component {
                 }
                 <h2><span className='f1 pointer' onClick={this.openSideNav}>&#9776; Open Profile</span></h2>
                 <Modal show={this.state.editProfile}>
-                    <div class="imgcontainer">
+                    <div className="imgcontainer">
                         <a onClick={this.closeProfile} className="close" title="Close Modal">&times;</a>
                         <h2>See & modify your profile</h2>
                     </div>
                     <div className='container'>
                         <div className='row mt3'>
                             <p className='f2 ml7 pl5'>Restaurant Name:</p>
-			      	        <input type="text" value={profile.name} required/>
+			      	        <input type="text" value={name} onChange={this.onNameChange} required/>
 			      	    </div>
                         <div className='row mt3'>
 			      		    <p className='f2 ml7 pl5'>Restaurant Type:</p>
-			      	        <input type="text" value={profile.type} required/>
+			      	        <input type="text" value={type} onChange={this.OnTypeChange} required/>
 			      	    </div>
                         <div className='row mt3'>
 			      		    <p className='f2 ml7 pl5'>Email:</p>
-			      	        <input type="text" value={profile.email} required/>
+			      	        <input type="text" value={email} onChange={this.onEmailChange} required/>
 			      	    </div>
                         <div className='row mt3'>
 			      		    <p className='f2 ml7 pl5'>Phone:</p>
-			      	        <input type="text" value={profile.phone} required/>
+			      	        <input type="text" value={phone} onChange={this.OnPhoneChange} required/>
 			      	    </div>
                         <div className='row mt3'>
 			      		    <p className='f2 ml7 pl5'>Image URL:</p>
-			      	        <input type="text" value={profile.imgurl} required/>
+			      	        <input type="text" value={imgurl} onChange={this.OnImgUrlChange} required/>
 			      	    </div>
                         <div className='mt2 ml7'>
-                            <img src={profile.imgurl} alt='' width='350px' height='300px'/>
+                            <img src={imgurl} alt='' width='350px' height='300px'/>
                         </div>
                 
-                        <button className='submit ma3' type="submit">submit</button>
+                        <button className='submit ma3' type="submit" onClick={this.OnProfileUpdate}>submit</button>
 			            <button className='submit ma3' type="reset">reset</button>
                     </div>
                 </Modal>
