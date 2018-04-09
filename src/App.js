@@ -14,6 +14,8 @@ import CSideFilter from './components/SideFilter/SideFilter';
 import CFoodBar from './components/FoodBar/FoodBar';
 import CShowRest from './components/ShowRest/ShowRest';
 
+import RSideNav from './components/SideNav/SideNav';
+
 const particlesOptions = {
     particles: {
     number: {
@@ -137,6 +139,15 @@ const initialState = {
         phone: '',
         joined: ''
     },
+    rest: {
+        id: '',
+        name: '',
+        email: '',
+        phone: '',
+        imgurl: '',
+        type: '',
+        joined: ''
+    },
     restaurants: []
 }
 
@@ -154,6 +165,20 @@ class App extends Component {
                 lname: data.lname,
                 email: data.email,
                 phone: data.phone,
+                joined: data.joined
+            }
+        })
+    }
+    
+    loadRest = (data) => {
+        this.setState({
+            rest: {
+                id: data.id,
+                name: data.name,
+                email: data.email,
+                phone: data.phone,
+                imgurl: data.imgurl,
+                type: data.type,
                 joined: data.joined
             }
         })
@@ -196,8 +221,8 @@ class App extends Component {
                         role === 'restaurant'
                         ? (
                             route === 'signin'
-                            ? <RSignin onRouteChange={this.onRouteChange}/>
-                            : <RRegister onRouteChange={this.onRouteChange}/>
+                            ? <RSignin loadRest={this.loadRest} onRouteChange={this.onRouteChange}/>
+                            : <RRegister loadRest={this.loadRest} onRouteChange={this.onRouteChange}/>
                           )
                         : (
                             route === 'signin'
@@ -223,7 +248,15 @@ class App extends Component {
                         </div>
                     </div>
                   </div>
-                : <div></div>
+                : (
+                    route === 'rest-home'
+                    ? <div>
+                        <RSideNav profile={this.state.rest}/>
+                      </div>
+                    : <div>
+                        
+                      </div>
+                  )
               ) 
          }
       </div>
