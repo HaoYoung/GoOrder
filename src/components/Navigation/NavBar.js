@@ -9,7 +9,7 @@ class Navigation extends React.Component {
         return (
             <header className="container-fluid">
             <nav className="navbar navbar-light">
-                <a className="navbar-brand logo" href="#">
+                <a className="navbar-brand logo pointer">
                     <img src={icon} width='35px' height='35px' className="d-inline-block align-top" alt=""/>
                     <p className='f1 mv2'>GoOrder</p>
                 </a>
@@ -32,7 +32,7 @@ class Navigation extends React.Component {
                         <a className="nav-link" href="userSetting.html">ORDERS</a>
                     </li>
                     <li className="nav-item mv3">
-                        <a className="nav-link" href="#">CART<span className="badge badge-light">0</span></a>
+                        <a className="nav-link pointer">CART<span className="badge badge-light">0</span></a>
                     </li>
                 </ul>
             </nav>

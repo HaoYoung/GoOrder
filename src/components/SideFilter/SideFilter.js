@@ -8,7 +8,7 @@ class SideFilter extends React.Component {
             <div>
                 <div className='row'>
                     <p className='f1 ml4 mt4'>Filters</p>
-                    <a href="#" className='f3 ml3 mt4 pt3'>(clear all)</a>
+                    <a className='f3 ml3 mt4 pt3 pointer'>(clear all)</a>
                 </div>
                 
                 <div className='row'>

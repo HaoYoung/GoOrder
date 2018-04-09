@@ -70,8 +70,8 @@ class SideNav extends React.Component {
                         <a onClick={this.closeSideNav} className="closebtn" >&times;</a>
                         <a onClick={this.showProfile} className='pointer'>restaurant profile</a>
                         <a className='pointer'>add food</a>
-                        <a href="#">edit food</a>
-                        <a href="#">delete food</a>
+                        <a className='pointer'>edit food</a>
+                        <a className='pointer'>delete food</a>
                         <a href="LoginPage.html">Log out</a>
                       </div>
                     : <div />

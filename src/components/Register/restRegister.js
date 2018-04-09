@@ -1,4 +1,5 @@
 import React from 'react';
+import Select from 'react-select';
 
 class Register extends React.Component {
     constructor(props) {
@@ -7,6 +8,7 @@ class Register extends React.Component {
             name: '',
             email: '',
             phone: '',
+            imgurl: '',
             type: '',
             password: ''
             
@@ -25,8 +27,9 @@ class Register extends React.Component {
         this.setState({phone: event.target.value})
     }
     
-    onTypeChange = (event) => {
-        this.setState({type: event.target.value})
+    onTypeChange = (selectedOption) => {
+        this.setState({type: selectedOption.label});
+        console.log(`Selected: ${selectedOption.label}`);
     }
     
     onPasswordChange = (event) => {
@@ -34,6 +37,12 @@ class Register extends React.Component {
     }
     
     onSubmitRegister = () => {
+        console.log(this.state.name);
+        console.log(this.state.email);
+        console.log(this.state.phone);
+        console.log(this.state.imgurl);
+        console.log(this.state.type);
+        console.log(this.state.password);
         fetch('https://go-order-api.herokuapp.com/restaurant_register', {
             method: 'post',
             headers: {'Content-type': 'application/json'},
@@ -41,6 +50,7 @@ class Register extends React.Component {
                 name: this.state.name,
                 email: this.state.email,
                 phone: this.state.phone,
+                imgurl: this.state.imgurl,
                 type: this.state.type,
                 password: this.state.password
             })
@@ -56,6 +66,7 @@ class Register extends React.Component {
     }
     
     render() {
+        const { type } = this.state;
         return (
             <article className="br3 ba dark-gray b--black-10 mv6 w-100 w-50-m w-25-l mw6 shadow-5 center">
                 <main className="pa4 black-80">
@@ -74,12 +85,21 @@ class Register extends React.Component {
                       </div>
                       <div className="mt3">
                         <label className="db fw6 lh-copy f6 white" htmlFor="name">Food Type</label>
-                        <select>
-                            <option value="American">American</option>
-                            <option value="Chinese">Chinese</option>
-                            <option value="Chinese">Mexican</option>
-                            <option value="Sushi">Sushi</option>
-                        </select>
+                        <Select
+                            name="form-types"
+                            value={type}
+                            onChange={this.onTypeChange}
+                            options={[
+                              { value: 'American', label: 'American' },
+                              { value: 'Chinese', label: 'Chinese' },
+                              { value: 'Mexican', label: 'Mexican' },
+                              { value: 'Pizza', label: 'Pizza' },
+                              { value: 'Sandwiches', label: 'Sandwiches' },
+                              { value: 'Salads', label: 'Salads' },
+                              { value: 'Sushi', label: 'Sushi' },
+                              { value: 'Dessert', label: 'Dessert' }
+                            ]}
+                          />
                       </div>
                       <div className="mt3">
                         <label className="db fw6 lh-copy f6 white" htmlFor="name">Email</label>

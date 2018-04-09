@@ -5,6 +5,7 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import 'tachyons';
 import 'bootstrap/dist/css/bootstrap.css';
+import 'react-select/dist/react-select.css';
 
 ReactDOM.render(<App />, document.getElementById('root'));
 registerServiceWorker();
