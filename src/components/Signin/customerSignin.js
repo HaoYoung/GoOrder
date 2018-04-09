@@ -82,7 +82,7 @@ class Signin extends React.Component {
                       />
                     </div>
                     <div className="lh-copy mt3">
-                      <a onClick={() => onRouteChange('register')} href="#0" className="f6 link dim black db pointer">Register</a>
+                      <a onClick={() => onRouteChange('register')} className="f6 link dim black db pointer">Register</a>
                     </div>
                   </div>
                 </main>

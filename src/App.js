@@ -244,7 +244,7 @@ class App extends Component {
             : (
                 route === 'customer-home'
                 ? <div>
-                   <CNavigation />
+                   <CNavigation profile={this.state.user} loadUser={this.loadUser}/>
                     <div className="container-fluid">
                         <div className='row' style={{height: 1000}}>
                             <div className='w-20'>

@@ -1,7 +1,3 @@
-Navbar.Brand {
-    display: flex;
-}
-
 header {
     background: #FFD700;
     height: 70px;
@@ -53,4 +49,9 @@ li.search {
 
 .nav-item {
     cursor: pointer;
+}
+
+.custom-modal{
+    width: 50%;
+    height: 50%;
 }
