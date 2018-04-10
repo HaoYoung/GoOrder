@@ -103,7 +103,6 @@ class Navigation extends React.Component {
                         <Modal.Title><p className='f2'>Profile</p></Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <div className='container-fluid'>
                             <div class="center">
                                 <div class="fl w-third pa1">
                                   <p className='f3 ml4 mt2'>First Name:</p>
@@ -125,7 +124,7 @@ class Navigation extends React.Component {
                                   <p className='f3 ml4 mt2'>Email:</p>
                                 </div>
                                 <div class="fl w-two-thirds pa1">
-                                  <input className='ml2' type="text" value={email} onChange={this.onEmailChange} readonly/>
+                                  <p className='ml2 mt2'>{email}</p>
                                 </div>
                             </div>
                             <div class="center">
@@ -136,7 +135,6 @@ class Navigation extends React.Component {
                                   <input className='ml2' type="text" value={phone} onChange={this.onPhoneChange} required/>
                                 </div>
                             </div>
-                        </div>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button onClick={this.OnProfileUpdate}>Update</Button>
