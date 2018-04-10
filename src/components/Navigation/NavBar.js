@@ -50,6 +50,7 @@ class Navigation extends React.Component {
                 console.log(user);
             }
         })
+        .catch( err => console.log(err));
     }
     
     render(){
@@ -124,7 +125,7 @@ class Navigation extends React.Component {
                                   <p className='f3 ml4 mt2'>Email:</p>
                                 </div>
                                 <div class="fl w-two-thirds pa1">
-                                  <input className='ml2' type="text" value={email} onChange={this.onEmailChange} required/>
+                                  <input className='ml2' type="text" value={email} onChange={this.onEmailChange} readonly/>
                                 </div>
                             </div>
                             <div class="center">

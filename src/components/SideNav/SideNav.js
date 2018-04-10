@@ -58,6 +58,7 @@ class SideNav extends React.Component {
                 console.log(user);
             }
         })
+        .catch( err => console.log(err));
     }
     
     render(){ 
@@ -93,7 +94,7 @@ class SideNav extends React.Component {
 			      	    </div>
                         <div className='row mt3'>
 			      		    <p className='f2 ml7 pl5'>Email:</p>
-			      	        <input type="text" value={email} onChange={this.onEmailChange} required/>
+                            <p className='f2'>{email}</p>
 			      	    </div>
                         <div className='row mt3'>
 			      		    <p className='f2 ml7 pl5'>Phone:</p>

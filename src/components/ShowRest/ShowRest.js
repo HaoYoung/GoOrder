@@ -30,12 +30,12 @@ class ShowRest extends React.Component {
         
         return (
             <div className='mt5 container-fluid'>
-                <ul class="nav nav-tabs">
-                    <li class="nav-item">
-                        <a class="nav-link active" onClick={this.onListClick}>List</a>
+                <ul className="nav nav-tabs">
+                    <li className="nav-item">
+                        <a className="nav-link active" onClick={this.onListClick}>List</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" onClick={this.onMapClick}>Map</a>
+                    <li className="nav-item">
+                        <a className="nav-link" onClick={this.onMapClick}>Map</a>
                     </li>
                 </ul>
                 <div className='row ma3'>
