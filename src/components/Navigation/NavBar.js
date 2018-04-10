@@ -15,21 +15,35 @@ class Navigation extends React.Component {
         const { profile } = this.props;
         this.state = {
             editProfile: false,
+            editAddress: false,
             id: profile.id,
             fname: profile.fname,
             lname: profile.lname,
             email: profile.email,
-            phone: profile.phone
+            phone: profile.phone,
+            street: '',
+            suit: '',
+            city: '',
+            state: '',
+            zip: ''
         }
     }
     
     showProfile = () => { this.setState({editProfile: true}); }
     closeProfile = () => { this.setState({editProfile: false}); }
+    showAddress = () => { this.setState({editAddress: true}); }
+    closeAddress = () => { this.setState({editAddress: false}); }
     
     onFNameChange = (event) => { this.setState({fname: event.target.value}) }
     onLNameChange = (event) => { this.setState({lname: event.target.value}) }
     onEmailChange = (event) => { this.setState({email: event.target.value}) }
     onPhoneChange = (event) => { this.setState({phone: event.target.value}) }
+    
+    onStreetChange = (event) => { this.setState({street: event.target.value}) }
+    onSuitChange = (event) => { this.setState({suit: event.target.value}) }
+    onCityChange = (event) => { this.setState({city: event.target.value}) }
+    onStateChange = (event) => { this.setState({state: event.target.value}) }
+    onZipChange = (event) => { this.setState({zip: event.target.value}) }
     
     OnProfileUpdate = () => {
         fetch('https://go-order-api.herokuapp.com/customer_profile', {
@@ -55,7 +69,7 @@ class Navigation extends React.Component {
     
     render(){
         const { onRouteChange } = this.props;
-        const { fname, lname, email, phone } = this.state;
+        const { fname, lname, email, phone, street, suit, city, state, zip } = this.state;
         
         return (
             <div>
@@ -80,7 +94,7 @@ class Navigation extends React.Component {
                         <li className="nav-item mv3">
                            <DropdownButton title={'SETTING'} style={{background: '#FFD700'}}>
                                <MenuItem eventKey="1" onClick={this.showProfile}>Profile</MenuItem>
-                               <MenuItem eventKey="2">Address</MenuItem>
+                               <MenuItem eventKey="2" onClick={this.showAddress}>Address</MenuItem>
                                <MenuItem eventKey="3">Payment</MenuItem>
                                <MenuItem eventKey="4">Change Password</MenuItem>
                                <MenuItem eventKey="5">Contact us</MenuItem>
@@ -139,6 +153,58 @@ class Navigation extends React.Component {
                     <Modal.Footer>
                         <Button onClick={this.OnProfileUpdate}>Update</Button>
                         <Button onClick={this.closeProfile}>Close</Button>
+                    </Modal.Footer>
+                </Modal>
+                
+                <Modal show={this.state.editAddress} onHide={this.closeAddress} bsSize='lg'>
+                    <Modal.Header closeButton>
+                        <Modal.Title><p className='f2'>Address</p></Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                            <div class="center">
+                                <div class="fl w-third pa1">
+                                  <p className='f3 ml4 mt2'>Street:</p>
+                                </div>
+                                <div class="fl w-two-thirds pa1">
+                                  <input className='ml2' type="text" value={street} onChange={this.onStreetChange} required/>
+                                </div>
+                            </div>
+                            <div class="center">
+                                <div class="fl w-third pa1">
+                                  <p className='f3 ml4 mt2'>Suit:</p>
+                                </div>
+                                <div class="fl w-two-thirds pa1">
+                                  <input className='ml2' type="text" value={suit} onChange={this.onSuitChange}/>
+                                </div>
+                            </div>
+                            <div class="center">
+                                <div class="fl w-third pa1">
+                                  <p className='f3 ml4 mt2'>City:</p>
+                                </div>
+                                <div class="fl w-two-thirds pa1">
+                                  <input className='ml2' type="text" value={city} onChange={this.onCityChange} required/>
+                                </div>
+                            </div>
+                            <div class="center">
+                                <div class="fl w-third pa1">
+                                  <p className='f3 ml4 mt2'>State:</p>
+                                </div>
+                                <div class="fl w-two-thirds pa1">
+                                  <input className='ml2' type="text" value={state} onChange={this.onStateChange} required/>
+                                </div>
+                            </div>
+                            <div class="center">
+                                <div class="fl w-third pa1">
+                                  <p className='f3 ml4 mt2'>Zip Code:</p>
+                                </div>
+                                <div class="fl w-two-thirds pa1">
+                                  <input className='ml2' type="text" value={zip} onChange={this.onZipChange} required/>
+                                </div>
+                            </div>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button onClick={this.OnAddressUpdate}>Update</Button>
+                        <Button onClick={this.closeAddress}>Close</Button>
                     </Modal.Footer>
                 </Modal>
             </div>   
