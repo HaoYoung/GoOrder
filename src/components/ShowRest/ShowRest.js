@@ -41,7 +41,7 @@ class ShowRest extends React.Component {
                 <div className='row ma3'>
                     <div className="container-fluid br3 w-100 mr5 pr3 bw1 b--light-black bg-light-blue">
                        { this.state.showList === true
-                         ? <div className='row' id="restaurant-container">
+                         ? <div className='tc' id="restaurant-container">
                             {restComponent}
                            </div>
                          : <div id='map-container'>
