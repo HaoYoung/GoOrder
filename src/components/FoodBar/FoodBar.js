@@ -2,6 +2,8 @@ import React from 'react';
 import './FoodBar.css';
 import TypeFilter from './TypeFilter/TypeFilter';
 
+const restArray = [];
+
 class FoodBar extends React.Component {
     constructor(props) {
         super(props);
@@ -18,24 +20,64 @@ class FoodBar extends React.Component {
         }
     }
     
-    onChineseClick = () => { this.setState({showChinese: true}); }
-    closeChinese = () => { this.setState({showChinese: false}); }
-    onAmericanClick = () => { this.setState({showAmerican: true}); }
-    closeAmerican = () => { this.setState({showAmerican: false}); }
-    onMexicanClick = () => { this.setState({showMexican: true}); }
-    closeMexican = () => { this.setState({showMexican: false}); }
-    onPizzaClick = () => { this.setState({showPizza: true}); }
-    closePizza = () => { this.setState({showPizza: false}); }
-    onSandwichesClick = () => { this.setState({showSandwiches: true}); }
-    closeSandwiches = () => { this.setState({showSandwiches: false}); }
-    onChickenClick = () => { this.setState({showChicken: true}); }
-    closeChicken = () => { this.setState({showChicken: false}); }
-    onSaladsClick = () => { this.setState({showSalads: true}); }
-    closeSalads = () => { this.setState({showSalads: false}); }
-    onSushiClick = () => { this.setState({showSushi: true}); }
-    closeSushi = () => { this.setState({showSushi: false}); }
-    onDessertClick = () => { this.setState({showDessert: true}); }
-    closeDessert = () => { this.setState({showDessert: false}); }
+    updateRArr = () => {
+        const prop = this.state;
+        restArray.length = 0;
+        if (prop.showChinese === true) { restArray.push('Chinese') }
+        if (prop.showAmerican === true) { restArray.push('American') }
+        if (prop.showMexican === true) { restArray.push('Mexican') }
+        if (prop.showPizza === true) { restArray.push('Pizza') }
+        if (prop.showSandwiches === true) { restArray.push('Sandwiches') }
+        if (prop.showChicken === true) { restArray.push('Chicken Wings') }
+        if (prop.showSalads === true) { restArray.push('Salads') }
+        if (prop.showSushi === true) { restArray.push('Sushi') }
+        if (prop.showDessert === true) { restArray.push('Dessert') }
+        console.log(restArray);
+        
+        if(restArray.length > 0){
+            fetch('https://go-order-api.herokuapp.com/rests_list', {
+                method: 'post',
+                headers: {'Content-type': 'application/json'},
+                body: JSON.stringify({
+                    restTypes: restArray
+                })
+            })
+            .then(response => response.json())
+            .then(rests => {
+                this.props.loadRestaurant(rests);
+            })
+        } else {
+            fetch('https://go-order-api.herokuapp.com/rests', {
+                method: 'get',
+                headers: {'Content-type': 'application/json'}
+            })
+            .then(response => response.json())
+            .then(rests => {
+                this.props.loadRestaurant(rests);
+            })
+        }
+    }
+    
+    onChineseClick = () => { this.setState({showChinese: true}, function() {this.updateRArr()}); }
+    closeChinese = () => { this.setState({showChinese: false}, function() {this.updateRArr()}); }
+    onAmericanClick = () => { this.setState({showAmerican: true}, function() {this.updateRArr()}); }
+    closeAmerican = () => { this.setState({showAmerican: false}, function() {this.updateRArr()}); }
+    onMexicanClick = () => { this.setState({showMexican: true}, function() {this.updateRArr()}); }
+    closeMexican = () => { this.setState({showMexican: false}, function() {this.updateRArr()}); }
+    onPizzaClick = () => { this.setState({showPizza: true}, function() {this.updateRArr()}); }
+    closePizza = () => { this.setState({showPizza: false}, function() {this.updateRArr()}); }
+    onSandwichesClick = () => { this.setState({showSandwiches: true}, function() {this.updateRArr()}); }
+    closeSandwiches = () => { this.setState({showSandwiches: false}, function() {this.updateRArr()}); }
+    onChickenClick = () => { this.setState({showChicken: true}, function() {this.updateRArr()}); }
+    closeChicken = () => { this.setState({showChicken: false}, function() {this.updateRArr()}); }
+    onSaladsClick = () => { this.setState({showSalads: true}, function() {this.updateRArr()}); }
+    closeSalads = () => { this.setState({showSalads: false}, function() {this.updateRArr()}); }
+    onSushiClick = () => { this.setState({showSushi: true}, function() {this.updateRArr()}); }
+    closeSushi = () => { this.setState({showSushi: false}, function() {this.updateRArr()}); }
+    onDessertClick = () => { this.setState({showDessert: true}, function() {this.updateRArr()}); }
+    closeDessert = () => { this.setState({showDessert: false}, function() {this.updateRArr()}); }
+    
+
     
     render(){ 
         return (

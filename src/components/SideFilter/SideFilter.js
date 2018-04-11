@@ -32,7 +32,6 @@ class SideFilter extends React.Component {
                     <input type="button" className='w-20' value="$$"/>
                     <input type="button" className='w-20' value="$$$"/>
                     <input type="button" className='w-20' value="$$$$"/>
-                    <input type="button" className='w-20 mr3' value="$$$$$"/>
                 </div>
                 
                 <div className="row">

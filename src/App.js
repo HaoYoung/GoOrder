@@ -251,7 +251,7 @@ class App extends Component {
                                 <CSideFilter />
                             </div>
                             <div className='pl4 w-80'>
-                                <CFoodBar />
+                                <CFoodBar loadRestaurant={this.loadRestaurants}/>
                                 <CShowRest rests={this.state.restaurants}/>
                             </div>
                         </div>
