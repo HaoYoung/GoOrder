@@ -2,7 +2,6 @@ import React from 'react';
 import './ShowRest.css';
 import RestBox from './RestBox';
 import Map from './Map/Map';
-//height:'110px'
 class ShowRest extends React.Component {
     
     constructor(props) {
@@ -25,11 +24,10 @@ class ShowRest extends React.Component {
         
         const restComponent = rests.map((rest) => {
             return <RestBox id={rest.id} name={rest.name} url={rest.imgurl}/> 
-            //console.log(rest.name);
         })
         
         return (
-            <div className='mt5 container-fluid'>
+            <div className='mt2 container-fluid'>
                 <ul className="nav nav-tabs">
                     <li className="nav-item">
                         <a className="nav-link active" onClick={this.onListClick}>List</a>

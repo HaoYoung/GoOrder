@@ -95,6 +95,7 @@ class Register extends React.Component {
                               { value: 'Mexican', label: 'Mexican' },
                               { value: 'Pizza', label: 'Pizza' },
                               { value: 'Sandwiches', label: 'Sandwiches' },
+                              { value: 'Chicken Wings', label: 'Chicken Wings' },
                               { value: 'Salads', label: 'Salads' },
                               { value: 'Sushi', label: 'Sushi' },
                               { value: 'Dessert', label: 'Dessert' }
