@@ -161,43 +161,43 @@ class Navigation extends React.Component {
                         <Modal.Title><p className='f2'>Address</p></Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                            <div class="center">
-                                <div class="fl w-third pa1">
+                            <div className="center">
+                                <div className="fl w-third pa1">
                                   <p className='f3 ml4 mt2'>Street:</p>
                                 </div>
-                                <div class="fl w-two-thirds pa1">
+                                <div className="fl w-two-thirds pa1">
                                   <input className='ml2' type="text" value={street} onChange={this.onStreetChange} required/>
                                 </div>
                             </div>
-                            <div class="center">
-                                <div class="fl w-third pa1">
+                            <div className="center">
+                                <div className="fl w-third pa1">
                                   <p className='f3 ml4 mt2'>Suit:</p>
                                 </div>
-                                <div class="fl w-two-thirds pa1">
+                                <div className="fl w-two-thirds pa1">
                                   <input className='ml2' type="text" value={suit} onChange={this.onSuitChange}/>
                                 </div>
                             </div>
-                            <div class="center">
-                                <div class="fl w-third pa1">
+                            <div className="center">
+                                <div className="fl w-third pa1">
                                   <p className='f3 ml4 mt2'>City:</p>
                                 </div>
-                                <div class="fl w-two-thirds pa1">
+                                <div className="fl w-two-thirds pa1">
                                   <input className='ml2' type="text" value={city} onChange={this.onCityChange} required/>
                                 </div>
                             </div>
-                            <div class="center">
-                                <div class="fl w-third pa1">
+                            <div className="center">
+                                <div className="fl w-third pa1">
                                   <p className='f3 ml4 mt2'>State:</p>
                                 </div>
-                                <div class="fl w-two-thirds pa1">
+                                <div className="fl w-two-thirds pa1">
                                   <input className='ml2' type="text" value={state} onChange={this.onStateChange} required/>
                                 </div>
                             </div>
-                            <div class="center">
-                                <div class="fl w-third pa1">
+                            <div className="center">
+                                <div className="fl w-third pa1">
                                   <p className='f3 ml4 mt2'>Zip Code:</p>
                                 </div>
-                                <div class="fl w-two-thirds pa1">
+                                <div className="fl w-two-thirds pa1">
                                   <input className='ml2' type="text" value={zip} onChange={this.onZipChange} required/>
                                 </div>
                             </div>

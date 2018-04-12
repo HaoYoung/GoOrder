@@ -1,6 +1,7 @@
 import React from 'react';
 import './SideNav.css';
 import Modal from './Modal/Modal';
+import { Button } from 'react-bootstrap';
 
 class SideNav extends React.Component {
     
@@ -10,33 +11,47 @@ class SideNav extends React.Component {
         this.state = {
             showSideNav: false,
             editProfile: false,
-            addFood: false,
+            showAddFood: false,
             id: profile.id,
             name: profile.name,
             type: profile.type,
             email: profile.email,
             phone: profile.phone,
-            imgurl: profile.imgurl
+            imgurl: profile.imgurl,
+            dishName: '',
+            dishCate: '',
+            dishPrice: 0,
+            dishImg: ''
         }
     }
     
     closeSideNav = () => { this.setState({showSideNav: false}) }
-    
-    openSideNav = (data) => { 
-        this.setState({
-            showSideNav: true
-        })
-    }
+    openSideNav = (data) => { this.setState({showSideNav: true}) }
     
     showProfile = () => { this.setState({editProfile: true}) }
-    
     closeProfile = () => { this.setState({editProfile: false}) }
+    
+    showAddFood = () => { 
+        this.setState({showAddFood: true})
+        this.setState({
+            dishName: '',
+            dishCate: '',
+            dishPrice: 0,
+            dishImg: ''
+            })
+    }
+    closeAddFood = () => { this.setState({showAddFood: false}) }
     
     onNameChange = (event) => { this.setState({name: event.target.value}) }
     onEmailChange = (event) => { this.setState({email: event.target.value}) }
     OnTypeChange = (event) => { this.setState({type: event.target.value}) }
     OnPhoneChange = (event) => { this.setState({phone: event.target.value}) }
     OnImgUrlChange = (event) => { this.setState({imgurl: event.target.value}) }
+    
+    onDNameChange = (event) => { this.setState({dishName: event.target.value}) }
+    onDCategoryChange = (event) => { this.setState({dishCate: event.target.value}) }
+    onDPriceChange = (event) => { this.setState({dishPrice: event.target.value}) }
+    onDImgChange = (event) => { this.setState({dishImg: event.target.value}) }
     
     OnProfileUpdate = () => {
         fetch('https://go-order-api.herokuapp.com/restaurant_profile', {
@@ -61,8 +76,28 @@ class SideNav extends React.Component {
         .catch( err => console.log(err));
     }
     
+    OnAddDish = () => {
+        fetch('https://go-order-api.herokuapp.com/rest_add_dish', {
+            method: 'post',
+            headers: {'Content-type': 'application/json'},
+            body: JSON.stringify({
+                r_id: this.state.id,
+                name: this.state.dishName,
+                category: this.state.dishCate,
+                price: this.state.dishPrice,
+                url: this.state.dishImg
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            this.setState({showAddFood: false})
+        })
+    }
+    
     render(){ 
         const { name, type, email, phone, imgurl } = this.state;
+        const { dishName, dishCate, dishPrice, dishImg } = this.state;
         
         return (
             <div className='w-100 h-100'>
@@ -70,7 +105,7 @@ class SideNav extends React.Component {
                     ? <div id="mySidenavl" className="sidenavl" style={{ width: '200px'}}>
                         <a onClick={this.closeSideNav} className="closebtn" >&times;</a>
                         <a onClick={this.showProfile} className='pointer'>restaurant profile</a>
-                        <a className='pointer'>add food</a>
+                        <a onClick={this.showAddFood} className='pointer'>add food</a>
                         <a className='pointer'>edit food</a>
                         <a className='pointer'>delete food</a>
                         <a href="LoginPage.html">Log out</a>
@@ -84,9 +119,13 @@ class SideNav extends React.Component {
                         <h2>See & modify your profile</h2>
                     </div>
                     <div className='container'>
-                        <div className='row mt3'>
-                            <p className='f2 ml7 pl5'>Restaurant Name:</p>
-			      	        <input type="text" value={name} onChange={this.onNameChange} required/>
+                        <div className='center'>
+                            <div className="fl w-third pa1">
+                                <p className='f2 ml7 pl5'>Restaurant Name:</p>
+                            </div>
+                            <div className="fl w-two-thirds pa1">
+                                <input type="text" value={name} onChange={this.onNameChange}/>
+                            </div>
 			      	    </div>
                         <div className='row mt3'>
 			      		    <p className='f2 ml7 pl5'>Restaurant Type:</p>
@@ -111,6 +150,49 @@ class SideNav extends React.Component {
                         <button className='submit ma3' type="submit" onClick={this.OnProfileUpdate}>submit</button>
 			            <button className='submit ma3' type="reset">reset</button>
                     </div>
+                </Modal>
+                <Modal show={this.state.showAddFood}>
+                   <div className='container'>
+                       <div className='center'>
+                            <div className="fl w-third pa1">
+                                <p className='f3 ml4 mt2'>Dish Name:</p>
+                            </div>
+                            <div className="fl w-two-thirds pa1">
+                                <input type="text" value={dishName} onChange={this.onDNameChange}/>
+                            </div>
+                        </div>
+                        <div className='center'>
+                            <div className="fl w-third pa1">
+                                <p className='f3 ml4 mt2'>Dish Category:</p>
+                            </div>
+                            <div className="fl w-two-thirds pa1">
+                                <input type="text" value={dishCate} onChange={this.onDCategoryChange}/>
+                            </div>
+                        </div>
+                        <div className='center'>
+                            <div className="fl w-third pa1">
+                                <p className='f3 ml4 mt2'>Dish Price:</p>
+                            </div>
+                            <div className="fl w-two-thirds pa1">
+                                <input type="number" value={dishPrice} onChange={this.onDPriceChange}/>
+                            </div>
+                        </div>
+                        <div className='center'>
+                            <div className="fl w-third pa1">
+                                <p className='f3 ml4 mt2'>Dish Image:</p>
+                            </div>
+                            <div className="fl w-two-thirds pa1">
+                                <input type="text" value={dishImg} onChange={this.onDImgChange}/>
+                            </div>
+                        </div>
+                       <div className='mt2 ml7'>
+                           <div className='mt2'>
+                               <img src={this.state.dishImg} alt='' width='350px' height='300px'/>
+                           </div>
+                       </div>
+                        <Button onClick={this.OnAddDish}>Submit</Button>
+                        <Button onClick={this.closeAddFood}>Close</Button>
+                   </div>
                 </Modal>
             </div>  
             
