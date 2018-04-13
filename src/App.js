@@ -269,7 +269,7 @@ class App extends Component {
                 : (
                     route === 'rest-home'
                     ? <div>
-                        <RSideNav profile={this.state.rest} loadRest={this.loadRest}/>
+                        <RSideNav profile={this.state.rest} loadRest={this.loadRest} dishes={this.state.restDishes}/>
                       </div>
                     : <div>
                         

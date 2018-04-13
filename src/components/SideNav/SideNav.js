@@ -1,7 +1,7 @@
 import React from 'react';
 import './SideNav.css';
 import Modal from './Modal/Modal';
-import { Button } from 'react-bootstrap';
+import { Button, ButtonGroup } from 'react-bootstrap';
 
 class SideNav extends React.Component {
     
@@ -21,7 +21,8 @@ class SideNav extends React.Component {
             dishName: '',
             dishCate: '',
             dishPrice: 0,
-            dishImg: ''
+            dishImg: '',
+            dishType: []
         }
     }
     
@@ -97,7 +98,18 @@ class SideNav extends React.Component {
     
     render(){ 
         const { name, type, email, phone, imgurl } = this.state;
-        const { dishName, dishCate, dishPrice, dishImg } = this.state;
+        const { dishName, dishCate, dishPrice, dishImg, dishType } = this.state;
+        this.props.dishes.map((dish) => {
+             if (dishType.indexOf(dish.category) === -1) {
+                 dishType.push(dish.category);
+             }
+            return null;
+        })
+
+        const dishTypeComponent = dishType.map((type, i) => {
+            console.log(type);
+            return <Button key={i}>{type}</Button>
+        })
         
         return (
             <div className='w-100 h-100'>
@@ -113,6 +125,16 @@ class SideNav extends React.Component {
                     : <div />
                 }
                 <h2><span className='f1 pointer' onClick={this.openSideNav}>&#9776; Open Profile</span></h2>
+                
+                <div className='mt2 ml4 mr4 ba b--dark-blue br4'>
+                    <div className='tl ma1 pl3'>
+                        <p className='f2'>Menu Category</p>
+                    </div>
+                    <ButtonGroup>
+                        {dishTypeComponent}
+                    </ButtonGroup>
+                </div>
+                
                 <Modal show={this.state.editProfile}>
                     <div className="imgcontainer">
                         <a onClick={this.closeProfile} className="close" title="Close Modal">&times;</a>

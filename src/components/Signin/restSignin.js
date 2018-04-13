@@ -38,7 +38,6 @@ class Signin extends React.Component {
                 .then(response => response.json())
                 .then(dishes => {
                     this.props.loadDishes(dishes);
-                    console.log(dishes);
                 })
             }
         })
