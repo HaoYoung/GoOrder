@@ -100,12 +100,14 @@ class SideNav extends React.Component {
     render(){ 
         const { name, type, email, phone, imgurl } = this.state;
         const { dishName, dishCate, dishPrice, dishImg, dishType } = this.state;
+        
         this.props.dishes.map((dish) => {
              if (dishType.indexOf(dish.category) === -1) {
                  dishType.push(dish.category);
              }
             return null;
         })
+            
 
         const dishTypeComponent = dishType.map((type, i) => {
             console.log(type);
@@ -126,19 +128,23 @@ class SideNav extends React.Component {
                     : <div />
                 }
                 <h2><span className='f1 pointer' onClick={this.openSideNav}>&#9776; Open Profile</span></h2>
-                
-                <div className='mt2 ml4 mr4 ba b--dark-blue br4'>
-                    <div className='tl ma1 pl3'>
-                        <p className='f2'>Menu Category</p>
+
+                 <div>
+                    <div className='mt2 ml4 mr4 ba b--dark-blue br4'>
+                        <div className='tl ma1 pl3'>
+                            <p className='f2'>Menu Category</p>
+                        </div>
+                        <ButtonGroup>
+                            {dishTypeComponent}
+                        </ButtonGroup>
                     </div>
-                    <ButtonGroup>
-                        {dishTypeComponent}
-                    </ButtonGroup>
-                </div>
-                
-                <div>
-                    <ShowDish types={this.state.dishType} dishes={this.props.dishes}/>
-                </div>
+
+                    <div>
+                        <ShowDish types={this.state.dishType} dishes={this.props.dishes}/>
+                    </div>
+                  </div>
+
+                        
                 
                 <Modal show={this.state.editProfile}>
                     <div className="imgcontainer">
