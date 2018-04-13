@@ -157,7 +157,8 @@ const initialState = {
         dlnum: '',
         joined: ''
     },
-    restaurants: []
+    restaurants: [],
+    restDishes: []
 }
 
 class App extends Component {
@@ -197,6 +198,10 @@ class App extends Component {
         this.setState({restaurants: data});
     }
     
+    loadRestDishes = (data) => {
+        this.setState({restDishes: data});
+    }
+    
     
     onRouteChange = (route) => {
         if (route === 'signout') {
@@ -230,7 +235,11 @@ class App extends Component {
                         role === 'restaurant'
                         ? (
                             route === 'signin'
-                            ? <RSignin loadRest={this.loadRest} onRouteChange={this.onRouteChange}/>
+                            ? <RSignin loadRest={this.loadRest} 
+                                    onRouteChange={this.onRouteChange} 
+                                    loadDishes={this.loadRestDishes}
+                                    r_id={this.state.rest.id}
+                                    />
                             : <RRegister loadRest={this.loadRest} onRouteChange={this.onRouteChange}/>
                           )
                         : (

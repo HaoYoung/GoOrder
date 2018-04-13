@@ -31,6 +31,15 @@ class Signin extends React.Component {
             if(user.id){
                 this.props.loadRest(user);
                 this.props.onRouteChange('rest-home');
+                fetch(`https://go-order-api.herokuapp.com/rest_dishes/${user.id}`, {
+                    method: 'get',
+                    headers: {'Content-type': 'application/json'}
+                })
+                .then(response => response.json())
+                .then(dishes => {
+                    this.props.loadDishes(dishes);
+                    console.log(dishes);
+                })
             }
         })
     }
