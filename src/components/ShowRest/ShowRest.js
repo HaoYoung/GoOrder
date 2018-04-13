@@ -22,8 +22,8 @@ class ShowRest extends React.Component {
     render(){ 
         const { rests } = this.props;
         
-        const restComponent = rests.map((rest) => {
-            return <RestBox id={rest.id} name={rest.name} url={rest.imgurl}/> 
+        const restComponent = rests.map((rest, i) => {
+            return <RestBox key={i} id={rest.id} name={rest.name} url={rest.imgurl}/> 
         })
         
         return (

@@ -1,6 +1,7 @@
 import React from 'react';
 import './SideNav.css';
 import Modal from './Modal/Modal';
+import ShowDish from './ShowDish/ShowDish';
 import { Button, ButtonGroup } from 'react-bootstrap';
 
 class SideNav extends React.Component {
@@ -133,6 +134,10 @@ class SideNav extends React.Component {
                     <ButtonGroup>
                         {dishTypeComponent}
                     </ButtonGroup>
+                </div>
+                
+                <div>
+                    <ShowDish types={this.state.dishType} dishes={this.props.dishes}/>
                 </div>
                 
                 <Modal show={this.state.editProfile}>
