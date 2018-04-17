@@ -148,6 +148,15 @@ const initialState = {
         type: '',
         joined: ''
     },
+    address: {
+        has: false,
+        id: '',
+        street: '',
+        suit: '',
+        city: '',
+        state: '',
+        zip: ''
+    },
     driver: {
         id: '',
         fname: '',
@@ -194,12 +203,44 @@ class App extends Component {
         })
     }
     
+    loadDriver = (data) => {
+        this.setState({
+            driver: {
+                id: data.id,
+                fname: data.fname,
+                lname: data.lname,
+                email: data.email,
+                phone: data.phone,
+                dlnum: data.dlnum,
+                joined: data.joined
+            }
+        })
+    }
+    
+    loadAddress = (data) => {
+        this.setState({
+            address: {
+                has: true,
+                id: data.id,
+                street: data.street,
+                suit: data.suit,
+                city: data.city,
+                state: data.state,
+                zip: data.zip
+            }
+        })
+    }
+    
     loadRestaurants = (data) => {
         this.setState({restaurants: data});
     }
     
     loadRestDishes = (data) => {
         this.setState({restDishes: data});
+    }
+    
+    addRestDish = (data) => {
+        this.state.restDishes.push(data);
     }
     
     
@@ -228,7 +269,12 @@ class App extends Component {
                  { role === 'customer'
                     ? (
                         route === 'signin'
-                        ? <CSignin loadUser={this.loadUser} onRouteChange={this.onRouteChange} loadRestaurant={this.loadRestaurants}/>
+                        ? <CSignin 
+                            loadUser={this.loadUser} 
+                            onRouteChange={this.onRouteChange} 
+                            loadRestaurant={this.loadRestaurants}
+                            loadAddress={this.loadAddress}
+                            />
                         : <CRegister loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
                       )
                     : (
@@ -244,8 +290,8 @@ class App extends Component {
                           )
                         : (
                             route === 'signin'
-                            ? <DSignin loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
-                            : <DRegister loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
+                            ? <DSignin loadDriver={this.loadDriver} onRouteChange={this.onRouteChange}/>
+                            : <DRegister loadDriver={this.loadDriver} onRouteChange={this.onRouteChange}/>
                           )
                       )
                  }
@@ -253,7 +299,13 @@ class App extends Component {
             : (
                 route === 'customer-home'
                 ? <div>
-                   <CNavigation profile={this.state.user} loadUser={this.loadUser}/>
+                   <CNavigation 
+                       profile={this.state.user} 
+                       loadUser={this.loadUser} 
+                       address={this.state.address}
+                       loadAddress={this.loadAddress}
+                       onRouteChange={this.onRouteChange}
+                       />
                     <div className="container-fluid">
                         <div className='row' style={{height: 1000}}>
                             <div className='w-20'>
@@ -269,7 +321,12 @@ class App extends Component {
                 : (
                     route === 'rest-home'
                     ? <div>
-                        <RSideNav profile={this.state.rest} loadRest={this.loadRest} dishes={this.state.restDishes}/>
+                        <RSideNav 
+                            profile={this.state.rest} 
+                            loadRest={this.loadRest} 
+                            dishes={this.state.restDishes}
+                            addRestDish={this.addRestDish}
+                            />
                       </div>
                     : <div>
                         

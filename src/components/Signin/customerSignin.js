@@ -34,6 +34,22 @@ class Signin extends React.Component {
             }
         })
         
+        // render customer address info
+        fetch('https://go-order-api.herokuapp.com/get_addr', {
+            method: 'post',
+            headers: {'Content-type': 'application/json'},
+            body: JSON.stringify({
+                email: this.state.signInEmail
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data !== 'Not found'){
+                this.props.loadAddress(data);
+            }
+        })
+        
+        // render restaurants info
         fetch('https://go-order-api.herokuapp.com/rests', {
             method: 'get',
             headers: {'Content-type': 'application/json'}
