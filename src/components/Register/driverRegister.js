@@ -13,29 +13,17 @@ class Register extends React.Component {
         }
     }
     
-    onFNameChange = (event) => {
-        this.setState({fname: event.target.value})
-    }
+    onFNameChange = (event) => { this.setState({fname: event.target.value}) }
     
-    onLNameChange = (event) => {
-        this.setState({lname: event.target.value})
-    }
+    onLNameChange = (event) => { this.setState({lname: event.target.value}) }
     
-    onEmailChange = (event) => {
-        this.setState({email: event.target.value})
-    }
+    onEmailChange = (event) => { this.setState({email: event.target.value}) }
     
-    onPhoneChange = (event) => {
-        this.setState({phone: event.target.value})
-    }
+    onPhoneChange = (event) => { this.setState({phone: event.target.value}) }
     
-    onDLChange = (event) => {
-        this.setState({dlnum: event.target.value})
-    }
+    onDLChange = (event) => { this.setState({dlnum: event.target.value}) }
     
-    onPasswordChange = (event) => {
-        this.setState({password: event.target.value})
-    }
+    onPasswordChange = (event) => { this.setState({password: event.target.value}) }
     
     onSubmitRegister = () => {
         fetch('https://go-order-api.herokuapp.com/driver_register', {
@@ -53,10 +41,11 @@ class Register extends React.Component {
         .then(response => response.json())
         .then(user => {
             if(user.id){
-                this.props.loadUser(user);
+                this.props.loadDriver(user);
                 this.props.onRouteChange('driver-home');
             }
         })
+        .catch( err => console.log(err));
     }
     
     render() {
@@ -113,7 +102,7 @@ class Register extends React.Component {
                             type="text" 
                             name="dlnum"  
                             id="dlnum"
-                            onChange={this.onPhoneChange}
+                            onChange={this.onDLChange}
                         />
                       </div>
                       <div className="mv3">
