@@ -12,7 +12,7 @@ class Navigation extends React.Component {
         this.showProfile = this.showProfile.bind(this);
         this.closeProfile = this.closeProfile.bind(this);
         
-        const { profile } = this.props;
+        const { profile, address } = this.props;
         this.state = {
             editProfile: false,
             editAddress: false,
@@ -21,11 +21,11 @@ class Navigation extends React.Component {
             lname: profile.lname,
             email: profile.email,
             phone: profile.phone,
-            street: '',
-            suit: '',
-            city: '',
-            state: '',
-            zip: ''
+            street: address.street,
+            suit: address.suit,
+            city: address.city,
+            state: address.state,
+            zip: address.zip
         }
     }
     
@@ -67,8 +67,54 @@ class Navigation extends React.Component {
         .catch( err => console.log(err));
     }
     
+    OnAddressUpdate =() => {
+        fetch('https://go-order-api.herokuapp.com/update_addr', {
+            method: 'post',
+            headers: {'Content-type': 'application/json'},
+            body: JSON.stringify({
+                email: this.state.email,
+                street: this.state.street,
+                suit: this.state.suit,
+                city: this.state.city,
+                state: this.state.state,
+                zip: this.state.zip
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data.id){
+                this.props.loadAddress(data);
+                console.log(data);
+            }
+        })
+        .catch( err => console.log(err));
+    }
+    
+    OnAddressInsert =() => {
+        fetch('https://go-order-api.herokuapp.com/add_addr', {
+            method: 'post',
+            headers: {'Content-type': 'application/json'},
+            body: JSON.stringify({
+                email: this.state.email,
+                street: this.state.street,
+                suit: this.state.suit,
+                city: this.state.city,
+                state: this.state.state,
+                zip: this.state.zip
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data.id){
+                this.props.loadAddress(data);
+                console.log(data);
+            }
+        })
+        .catch( err => console.log(err));
+    }
+    
     render(){
-        const { onRouteChange } = this.props;
+        const { onRouteChange, address } = this.props;
         const { fname, lname, email, phone, street, suit, city, state, zip } = this.state;
         
         return (
@@ -203,7 +249,10 @@ class Navigation extends React.Component {
                             </div>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button onClick={this.OnAddressUpdate}>Update</Button>
+                        { this.props.address.has === true
+                            ? <Button onClick={this.OnAddressUpdate}>Update</Button>
+                            : <Button onClick={this.OnAddressInsert}>Add</Button>
+                        }
                         <Button onClick={this.closeAddress}>Close</Button>
                     </Modal.Footer>
                 </Modal>

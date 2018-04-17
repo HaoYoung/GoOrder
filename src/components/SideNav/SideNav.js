@@ -98,7 +98,8 @@ class SideNav extends React.Component {
         })
         .then(response => response.json())
         .then(data => {
-            console.log(data);
+            console.log(data[0]);
+            this.props.addRestDish(data[0]);
             this.setState({showAddFood: false})
         })
     }
