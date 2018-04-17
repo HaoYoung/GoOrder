@@ -15,6 +15,7 @@ import CFoodBar from './components/FoodBar/FoodBar';
 import CShowRest from './components/ShowRest/ShowRest';
 
 import RSideNav from './components/SideNav/SideNav';
+import DSideNav from './components/Driver/SideNav';
 
 const particlesOptions = {
     particles: {
@@ -329,7 +330,7 @@ class App extends Component {
                             />
                       </div>
                     : <div>
-                        
+                        <DSideNav profile={this.state.rest} loadRest={this.loadRest} />
                       </div>
                   )
               ) 
