@@ -15,6 +15,7 @@ import CFoodBar from './components/FoodBar/FoodBar';
 import CShowRest from './components/ShowRest/ShowRest';
 
 import RSideNav from './components/SideNav/SideNav';
+import DMain from './components/Driver/DriverMain';
 
 const particlesOptions = {
     particles: {
@@ -155,7 +156,9 @@ const initialState = {
         suit: '',
         city: '',
         state: '',
-        zip: ''
+        zip: '',
+        longitude: 0,
+        latitude: 0,
     },
     driver: {
         id: '',
@@ -179,7 +182,7 @@ class App extends Component {
     loadUser = (data) => {
         this.setState({
             user: {
-                id: data.id,
+                id: data.c_id,
                 fname: data.fname,
                 lname: data.lname,
                 email: data.email,
@@ -192,7 +195,7 @@ class App extends Component {
     loadRest = (data) => {
         this.setState({
             rest: {
-                id: data.id,
+                id: data.r_id,
                 name: data.name,
                 email: data.email,
                 phone: data.phone,
@@ -217,16 +220,32 @@ class App extends Component {
         })
     }
     
-    loadAddress = (data) => {
+    loadCAddress = (data) => {
         this.setState({
             address: {
                 has: true,
-                id: data.id,
-                street: data.street,
-                suit: data.suit,
-                city: data.city,
-                state: data.state,
-                zip: data.zip
+                id: data.c_addr_id,
+                street: data.c_street,
+                suit: data.c_suit,
+                city: data.c_city,
+                state: data.c_state,
+                zip: data.c_zip,
+                longitude: data.c_longitude,
+                latitude: data.c_latitude
+            }
+        })
+    }
+    
+    loadRAddress = (data) => {
+        this.setState({
+            address: {
+                has: true,
+                id: data.r_addr_id,
+                street: data.r_street,
+                suit: data.r_suit,
+                city: data.r_city,
+                state: data.r_state,
+                zip: data.r_zip
             }
         })
     }
@@ -273,7 +292,7 @@ class App extends Component {
                             loadUser={this.loadUser} 
                             onRouteChange={this.onRouteChange} 
                             loadRestaurant={this.loadRestaurants}
-                            loadAddress={this.loadAddress}
+                            loadAddress={this.loadCAddress}
                             />
                         : <CRegister loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
                       )
@@ -303,7 +322,7 @@ class App extends Component {
                        profile={this.state.user} 
                        loadUser={this.loadUser} 
                        address={this.state.address}
-                       loadAddress={this.loadAddress}
+                       loadAddress={this.loadCAddress}
                        onRouteChange={this.onRouteChange}
                        />
                     <div className="container-fluid">
@@ -329,7 +348,7 @@ class App extends Component {
                             />
                       </div>
                     : <div>
-                        
+                        <DMain />
                       </div>
                   )
               ) 

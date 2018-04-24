@@ -25,7 +25,9 @@ class Navigation extends React.Component {
             suit: address.suit,
             city: address.city,
             state: address.state,
-            zip: address.zip
+            zip: address.zip,
+            longitude: address.longitude,
+            latitude: address.latitude
         }
     }
     
@@ -50,7 +52,7 @@ class Navigation extends React.Component {
             method: 'post',
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify({
-                id: this.state.id,
+                c_id: this.state.id,
                 fname: this.state.fname,
                 lname: this.state.lname,
                 email: this.state.email,
@@ -72,12 +74,14 @@ class Navigation extends React.Component {
             method: 'post',
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify({
-                email: this.state.email,
+                c_id: this.state.id,
                 street: this.state.street,
                 suit: this.state.suit,
                 city: this.state.city,
                 state: this.state.state,
-                zip: this.state.zip
+                zip: this.state.zip,
+                longitude: this.state.longitude,
+                latitude: this.state.latitude
             })
         })
         .then(response => response.json())
@@ -95,12 +99,14 @@ class Navigation extends React.Component {
             method: 'post',
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify({
-                email: this.state.email,
+                c_id: this.state.id,
                 street: this.state.street,
                 suit: this.state.suit,
                 city: this.state.city,
                 state: this.state.state,
-                zip: this.state.zip
+                zip: this.state.zip,
+                longitude: this.state.longitude,
+                latitude: this.state.latitude
             })
         })
         .then(response => response.json())
@@ -212,7 +218,7 @@ class Navigation extends React.Component {
                                   <p className='f3 ml4 mt2'>Street:</p>
                                 </div>
                                 <div className="fl w-two-thirds pa1">
-                                  <input className='ml2' type="text" value={street} onChange={this.onStreetChange} required/>
+                                  <input className='ml2' type="text" value={this.props.address.street} onChange={this.onStreetChange} required/>
                                 </div>
                             </div>
                             <div className="center">
@@ -220,7 +226,7 @@ class Navigation extends React.Component {
                                   <p className='f3 ml4 mt2'>Suit:</p>
                                 </div>
                                 <div className="fl w-two-thirds pa1">
-                                  <input className='ml2' type="text" value={suit} onChange={this.onSuitChange}/>
+                                  <input className='ml2' type="text" value={this.props.address.suit} onChange={this.onSuitChange}/>
                                 </div>
                             </div>
                             <div className="center">
@@ -228,7 +234,7 @@ class Navigation extends React.Component {
                                   <p className='f3 ml4 mt2'>City:</p>
                                 </div>
                                 <div className="fl w-two-thirds pa1">
-                                  <input className='ml2' type="text" value={city} onChange={this.onCityChange} required/>
+                                  <input className='ml2' type="text" value={this.props.address.city} onChange={this.onCityChange} required/>
                                 </div>
                             </div>
                             <div className="center">
@@ -236,7 +242,7 @@ class Navigation extends React.Component {
                                   <p className='f3 ml4 mt2'>State:</p>
                                 </div>
                                 <div className="fl w-two-thirds pa1">
-                                  <input className='ml2' type="text" value={state} onChange={this.onStateChange} required/>
+                                  <input className='ml2' type="text" value={this.props.address.state} onChange={this.onStateChange} required/>
                                 </div>
                             </div>
                             <div className="center">
@@ -244,7 +250,7 @@ class Navigation extends React.Component {
                                   <p className='f3 ml4 mt2'>Zip Code:</p>
                                 </div>
                                 <div className="fl w-two-thirds pa1">
-                                  <input className='ml2' type="text" value={zip} onChange={this.onZipChange} required/>
+                                  <input className='ml2' type="text" value={this.props.address.zip} onChange={this.onZipChange} required/>
                                 </div>
                             </div>
                     </Modal.Body>
