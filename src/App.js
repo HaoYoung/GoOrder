@@ -13,6 +13,7 @@ import CNavigation from './components/Navigation/NavBar';
 import CSideFilter from './components/SideFilter/SideFilter';
 import CFoodBar from './components/FoodBar/FoodBar';
 import CShowRest from './components/ShowRest/ShowRest';
+import CMenu from './components/ShowMenu/ShowMenu';
 
 import RSideNav from './components/SideNav/SideNav';
 import DMain from './components/Driver/DriverMain';
@@ -170,7 +171,10 @@ const initialState = {
         joined: ''
     },
     restaurants: [],
-    restDishes: []
+    restDishes: [],
+    orders: [],
+    onOrder: false,
+    menu: []
 }
 
 class App extends Component {
@@ -262,6 +266,14 @@ class App extends Component {
         this.state.restDishes.push(data);
     }
     
+    loadOrders = (data) => {
+        this.setState({orders: data});
+    }
+    
+    loadMenu = (data) => {
+        this.setState({menu: data});
+    }
+    
     
     onRouteChange = (route) => {
         if (route === 'signout') {
@@ -276,8 +288,12 @@ class App extends Component {
         this.setState({role: role, route: 'signin'});
     }
     
+    onOrderState = (bool) => {
+        this.setState({onOrder: bool});
+    }
+    
   render() {
-    const { isSignedIn, route, role } = this.state;
+    const { isSignedIn, route, role, onOrder } = this.state;
     
     return (
       <div className='App'>
@@ -309,7 +325,10 @@ class App extends Component {
                           )
                         : (
                             route === 'signin'
-                            ? <DSignin loadDriver={this.loadDriver} onRouteChange={this.onRouteChange}/>
+                            ? <DSignin loadDriver={this.loadDriver} 
+                                onRouteChange={this.onRouteChange}
+                                loadOrder={this.loadOrders}
+                                />
                             : <DRegister loadDriver={this.loadDriver} onRouteChange={this.onRouteChange}/>
                           )
                       )
@@ -323,19 +342,30 @@ class App extends Component {
                        loadUser={this.loadUser} 
                        address={this.state.address}
                        loadAddress={this.loadCAddress}
-                       onRouteChange={this.onRouteChange}
+                       onOrderState={this.onOrderState}
                        />
-                    <div className="container-fluid">
-                        <div className='row' style={{height: 1000}}>
-                            <div className='w-20'>
-                                <CSideFilter />
-                            </div>
-                            <div className='pl4 w-80'>
-                                <CFoodBar loadRestaurant={this.loadRestaurants}/>
-                                <CShowRest rests={this.state.restaurants}/>
+                    { onOrder === true
+                        ? <div>
+                            <CMenu menu={this.state.menu} rest={this.state.rest} />
+                        </div>
+                        
+                        : <div className="container-fluid">
+                            <div className='row' style={{height: 1000}}>
+                                <div className='w-20'>
+                                    <CSideFilter />
+                                </div>
+                                <div className='pl4 w-80'>
+                                    <CFoodBar loadRestaurant={this.loadRestaurants}/>
+                                    <CShowRest 
+                                        rests={this.state.restaurants} 
+                                        onOrderState={this.onOrderState} 
+                                        loadMenu={this.loadMenu}
+                                        loadRest={this.loadRest}
+                                    />
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    }
                   </div>
                 : (
                     route === 'rest-home'

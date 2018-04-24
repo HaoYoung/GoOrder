@@ -31,6 +31,17 @@ class Signin extends React.Component {
             if(user.id){
                 this.props.loadDriver(user);
                 this.props.onRouteChange('driver-home');
+                fetch(`https://go-order-api.herokuapp.com/orders`, {
+                    method: 'get',
+                    headers: {'Content-type': 'application/json'}
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if(data !== 'Not found'){
+                        this.props.loadOrder(data);
+                        console.log(data);
+                    }
+                })
             }
         })
     }

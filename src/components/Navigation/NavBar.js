@@ -120,8 +120,8 @@ class Navigation extends React.Component {
     }
     
     render(){
-        const { onRouteChange, address } = this.props;
-        const { fname, lname, email, phone, street, suit, city, state, zip } = this.state;
+        const { onOrderState } = this.props;
+        const { fname, lname, email, phone } = this.state;
         
         return (
             <div>
@@ -141,7 +141,7 @@ class Navigation extends React.Component {
                         </li>
 
                         <li className="nav-item mv3">
-                            <a className="nav-link active" onClick={() => onRouteChange('customer-home')}>HOME</a>
+                            <a className="nav-link active" onClick={() => onOrderState(false)}>HOME</a>
                         </li>
                         <li className="nav-item mv3">
                            <DropdownButton title={'SETTING'} style={{background: '#FFD700'}}>
