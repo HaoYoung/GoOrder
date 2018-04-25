@@ -57,6 +57,11 @@ class Navigation extends React.Component {
     onLongitudeChange = (event) => { this.setState({longitude: event.target.value}) }
     onLatitudeChange = (event) => { this.setState({latitude: event.target.value}) }
     
+    returnHome = () => {
+        this.props.onOrderState(false);
+        this.props.resetMenu();
+    }
+    
     OnProfileUpdate = () => {
         fetch('https://go-order-api.herokuapp.com/customer_profile', {
             method: 'post',
@@ -130,7 +135,6 @@ class Navigation extends React.Component {
     }
     
     render(){
-        const { onOrderState } = this.props;
         const { fname, lname, email, phone, street, suit, city, state, zip, longitude, latitude } = this.state;
         
         return (
@@ -151,7 +155,7 @@ class Navigation extends React.Component {
                         </li>
 
                         <li className="nav-item mv3">
-                            <a className="nav-link active" onClick={() => onOrderState(false)}>HOME</a>
+                            <a className="nav-link active" onClick={this.returnHome}>HOME</a>
                         </li>
                         <li className="nav-item mv3">
                            <DropdownButton title={'SETTING'} style={{background: '#FFD700'}}>

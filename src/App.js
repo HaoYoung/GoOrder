@@ -295,6 +295,9 @@ class App extends Component {
         this.setState({menu: data});
     }
     
+    resetMenu = () => {
+        this.setState({menu: []});
+    }
     
     onRouteChange = (route) => {
         if (route === 'signout') {
@@ -366,6 +369,7 @@ class App extends Component {
                        address={this.state.address}
                        loadAddress={this.loadCAddress}
                        onOrderState={this.onOrderState}
+                       resetMenu={this.resetMenu}
                        />
                     { onOrder === true
                         ? <div>
