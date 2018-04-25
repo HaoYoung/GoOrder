@@ -37,28 +37,24 @@ class Signin extends React.Component {
                     headers: {'Content-type': 'application/json'}
                 })
                 .then(response => response.json())
-                .then(data => {
-                    if(data !== 'Not found'){
-                        this.props.loadAddress(data);
+                .then(address => {
+                    if(address !== 'Not found'){
+                        this.props.loadAddress(address);
+                    }
+                })
+                
+                fetch(`https://go-order-api.herokuapp.com/getcart/${user.c_id}`, {
+                    method: 'get',
+                    headers: {'Content-type': 'application/json'}
+                })
+                .then(response => response.json())
+                .then(items => {
+                    if(items.length){
+                        this.props.loadCart(items);
                     }
                 })
             }
         })
-        
-        // render customer address info
-//        fetch('https://go-order-api.herokuapp.com/get_addr', {
-//            method: 'post',
-//            headers: {'Content-type': 'application/json'},
-//            body: JSON.stringify({
-//                c_id: this.state.signInEmail
-//            })
-//        })
-//        .then(response => response.json())
-//        .then(data => {
-//            if(data !== 'Not found'){
-//                this.props.loadAddress(data);
-//            }
-//        })
         
         // render restaurants info
         fetch('https://go-order-api.herokuapp.com/rests', {

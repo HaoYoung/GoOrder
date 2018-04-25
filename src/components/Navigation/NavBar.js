@@ -172,7 +172,7 @@ class Navigation extends React.Component {
                             <a className="nav-link">ORDERS</a>
                         </li>
                         <li className="nav-item mv3">
-                            <a className="nav-link pointer">CART<span className="badge badge-light">0</span></a>
+                            <a className="nav-link pointer">CART<span className="badge badge-light">{this.props.totalItem}</span></a>
                         </li>
                     </ul>
                 </nav>

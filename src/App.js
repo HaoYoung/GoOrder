@@ -181,7 +181,9 @@ const initialState = {
         city: '',
         state: '',
         zip: ''
-    }
+    },
+    shopping_cart: [],
+    total_item: 0
 }
 
 class App extends Component {
@@ -299,6 +301,18 @@ class App extends Component {
         this.setState({menu: []});
     }
     
+    loadCart = (data) => {
+        this.setState({shopping_cart: data});
+        if(this.state.shopping_cart.length){
+            var total = 0;
+            this.state.shopping_cart.map((item) =>{
+                total += item.quantity;
+                return null;
+            })
+            this.setState({total_item: total});
+        }
+    }
+    
     onRouteChange = (route) => {
         if (route === 'signout') {
             this.setState(initialState);
@@ -333,6 +347,7 @@ class App extends Component {
                             onRouteChange={this.onRouteChange} 
                             loadRestaurant={this.loadRestaurants}
                             loadAddress={this.loadCAddress}
+                            loadCart={this.loadCart}
                             />
                         : <CRegister loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
                       )
@@ -370,6 +385,7 @@ class App extends Component {
                        loadAddress={this.loadCAddress}
                        onOrderState={this.onOrderState}
                        resetMenu={this.resetMenu}
+                       totalItem={this.state.total_item}
                        />
                     { onOrder === true
                         ? <div>
