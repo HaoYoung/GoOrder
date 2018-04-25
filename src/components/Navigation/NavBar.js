@@ -33,7 +33,15 @@ class Navigation extends React.Component {
     
     showProfile = () => { this.setState({editProfile: true}); }
     closeProfile = () => { this.setState({editProfile: false}); }
-    showAddress = () => { this.setState({editAddress: true}); }
+    showAddress = () => { this.setState({editAddress: true}); 
+                         this.setState({street: this.props.address.street});
+                         this.setState({suit: this.props.address.suit});
+                         this.setState({city: this.props.address.city});
+                         this.setState({state: this.props.address.state});
+                         this.setState({zip: this.props.address.zip});
+                         this.setState({longitude: this.props.address.longitude});
+                         this.setState({latitude: this.props.address.latitude});
+                        }
     closeAddress = () => { this.setState({editAddress: false}); }
     
     onFNameChange = (event) => { this.setState({fname: event.target.value}) }
@@ -46,6 +54,8 @@ class Navigation extends React.Component {
     onCityChange = (event) => { this.setState({city: event.target.value}) }
     onStateChange = (event) => { this.setState({state: event.target.value}) }
     onZipChange = (event) => { this.setState({zip: event.target.value}) }
+    onLongitudeChange = (event) => { this.setState({longitude: event.target.value}) }
+    onLatitudeChange = (event) => { this.setState({latitude: event.target.value}) }
     
     OnProfileUpdate = () => {
         fetch('https://go-order-api.herokuapp.com/customer_profile', {
@@ -70,7 +80,7 @@ class Navigation extends React.Component {
     }
     
     OnAddressUpdate =() => {
-        fetch('https://go-order-api.herokuapp.com/update_addr', {
+        fetch('https://go-order-api.herokuapp.com/update_c_addr', {
             method: 'post',
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify({
@@ -95,7 +105,7 @@ class Navigation extends React.Component {
     }
     
     OnAddressInsert =() => {
-        fetch('https://go-order-api.herokuapp.com/add_addr', {
+        fetch('https://go-order-api.herokuapp.com/add_c_addr', {
             method: 'post',
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify({
@@ -121,7 +131,7 @@ class Navigation extends React.Component {
     
     render(){
         const { onOrderState } = this.props;
-        const { fname, lname, email, phone } = this.state;
+        const { fname, lname, email, phone, street, suit, city, state, zip, longitude, latitude } = this.state;
         
         return (
             <div>
@@ -218,7 +228,7 @@ class Navigation extends React.Component {
                                   <p className='f3 ml4 mt2'>Street:</p>
                                 </div>
                                 <div className="fl w-two-thirds pa1">
-                                  <input className='ml2' type="text" value={this.props.address.street} onChange={this.onStreetChange} required/>
+                                  <input className='ml2' type="text" value={street} onChange={this.onStreetChange} required/>
                                 </div>
                             </div>
                             <div className="center">
@@ -226,7 +236,7 @@ class Navigation extends React.Component {
                                   <p className='f3 ml4 mt2'>Suit:</p>
                                 </div>
                                 <div className="fl w-two-thirds pa1">
-                                  <input className='ml2' type="text" value={this.props.address.suit} onChange={this.onSuitChange}/>
+                                  <input className='ml2' type="text" value={suit} onChange={this.onSuitChange}/>
                                 </div>
                             </div>
                             <div className="center">
@@ -234,7 +244,7 @@ class Navigation extends React.Component {
                                   <p className='f3 ml4 mt2'>City:</p>
                                 </div>
                                 <div className="fl w-two-thirds pa1">
-                                  <input className='ml2' type="text" value={this.props.address.city} onChange={this.onCityChange} required/>
+                                  <input className='ml2' type="text" value={city} onChange={this.onCityChange} required/>
                                 </div>
                             </div>
                             <div className="center">
@@ -242,7 +252,7 @@ class Navigation extends React.Component {
                                   <p className='f3 ml4 mt2'>State:</p>
                                 </div>
                                 <div className="fl w-two-thirds pa1">
-                                  <input className='ml2' type="text" value={this.props.address.state} onChange={this.onStateChange} required/>
+                                  <input className='ml2' type="text" value={state} onChange={this.onStateChange} required/>
                                 </div>
                             </div>
                             <div className="center">
@@ -250,7 +260,23 @@ class Navigation extends React.Component {
                                   <p className='f3 ml4 mt2'>Zip Code:</p>
                                 </div>
                                 <div className="fl w-two-thirds pa1">
-                                  <input className='ml2' type="text" value={this.props.address.zip} onChange={this.onZipChange} required/>
+                                  <input className='ml2' type="text" value={zip} onChange={this.onZipChange} required/>
+                                </div>
+                            </div>
+                            <div className="center">
+                                <div className="fl w-third pa1">
+                                  <p className='f3 ml4 mt2'>Longitude:</p>
+                                </div>
+                                <div className="fl w-two-thirds pa1">
+                                  <input className='ml2' type="text" value={longitude} onChange={this.onLongitudeChange} required/>
+                                </div>
+                            </div>
+                            <div className="center">
+                                <div className="fl w-third pa1">
+                                  <p className='f3 ml4 mt2'>Latitude:</p>
+                                </div>
+                                <div className="fl w-two-thirds pa1">
+                                  <input className='ml2' type="text" value={latitude} onChange={this.onLatitudeChange} required/>
                                 </div>
                             </div>
                     </Modal.Body>

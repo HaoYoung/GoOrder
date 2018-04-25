@@ -13,7 +13,7 @@ class ShowMenu extends React.Component {
     
     
     render(){ 
-        const { menu, rest } = this.props;
+        const { menu, rest, r_addr } = this.props;
         const { dishType } = this.state;
         
         menu.map((dish) => {
@@ -27,8 +27,11 @@ class ShowMenu extends React.Component {
             <div className='mt2 container-fluid'>
                 <div className='row' style={{height: 1000}}>
                     <div className='w-20'>
-                       <div>
+                       <div className='ml3'>
                            <img alt='rests' className='restimg' src={rest.imgurl} />
+                           <p className='f2 ml3 pl2'>{rest.name}</p>
+                           <p className='f3 ml3 pl2'>Phone: {rest.phone}</p>
+                           <p className='f3 ml3 pl2'>Address: {r_addr.street} {r_addr.suit} {r_addr.city} {r_addr.state}</p>
                        </div>
                     </div>
                     <div className='pl4 w-80'>

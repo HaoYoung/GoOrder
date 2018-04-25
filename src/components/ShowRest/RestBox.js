@@ -29,6 +29,18 @@ class RestBox extends React.Component {
         .then(data => {
             if(data !== 'Not found'){
                 this.props.loadRest(data);
+                //this.props.onOrderState(true);
+            }
+        })
+        
+        fetch(`https://go-order-api.herokuapp.com/get_r_addr/${this.state.id}`, {
+            method: 'get',
+            headers: {'Content-type': 'application/json'}
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data !== 'Not found'){
+                this.props.loadRAddress(data);
                 console.log(data);
                 this.props.onOrderState(true);
             }

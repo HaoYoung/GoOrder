@@ -174,7 +174,14 @@ const initialState = {
     restDishes: [],
     orders: [],
     onOrder: false,
-    menu: []
+    menu: [],
+    r_addr: {
+        street: '',
+        suit: '',
+        city: '',
+        state: '',
+        zip: ''
+    }
 }
 
 class App extends Component {
@@ -249,6 +256,20 @@ class App extends Component {
                 suit: data.r_suit,
                 city: data.r_city,
                 state: data.r_state,
+                zip: data.r_zip,
+                longitude: data.r_longitude,
+                latitude: data.r_latitude
+            }
+        })
+    }
+    
+    load_r_addr = (data) => {
+        this.setState({
+            r_addr: {
+                street: data.r_street,
+                suit: data.r_suit,
+                city: data.r_city,
+                state: data.r_state,
                 zip: data.r_zip
             }
         })
@@ -316,10 +337,12 @@ class App extends Component {
                         role === 'restaurant'
                         ? (
                             route === 'signin'
-                            ? <RSignin loadRest={this.loadRest} 
+                            ? <RSignin 
+                                    loadRest={this.loadRest} 
                                     onRouteChange={this.onRouteChange} 
                                     loadDishes={this.loadRestDishes}
                                     r_id={this.state.rest.id}
+                                    loadAddress={this.loadRAddress}
                                     />
                             : <RRegister loadRest={this.loadRest} onRouteChange={this.onRouteChange}/>
                           )
@@ -346,7 +369,7 @@ class App extends Component {
                        />
                     { onOrder === true
                         ? <div>
-                            <CMenu menu={this.state.menu} rest={this.state.rest} />
+                            <CMenu menu={this.state.menu} rest={this.state.rest} r_addr={this.state.r_addr}/>
                         </div>
                         
                         : <div className="container-fluid">
@@ -361,6 +384,7 @@ class App extends Component {
                                         onOrderState={this.onOrderState} 
                                         loadMenu={this.loadMenu}
                                         loadRest={this.loadRest}
+                                        loadRAddress={this.load_r_addr}
                                     />
                                 </div>
                             </div>
@@ -375,6 +399,7 @@ class App extends Component {
                             loadRest={this.loadRest} 
                             dishes={this.state.restDishes}
                             addRestDish={this.addRestDish}
+                            addr={this.state.address}
                             />
                       </div>
                     : <div>

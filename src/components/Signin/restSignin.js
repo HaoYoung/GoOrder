@@ -39,6 +39,18 @@ class Signin extends React.Component {
                 .then(dishes => {
                     this.props.loadDishes(dishes);
                 })
+                
+                fetch(`https://go-order-api.herokuapp.com/get_r_addr/${user.r_id}`, {
+                    method: 'get',
+                    headers: {'Content-type': 'application/json'}
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if(data !== 'Not found'){
+                        console.log(data);
+                        this.props.loadAddress(data);
+                    }
+                })
             }
         })
     }
