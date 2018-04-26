@@ -127,7 +127,7 @@ class SideNav extends React.Component {
                     ? <div id="mySidenavl" className="sidenavl" style={{ width: '200px'}}>
                         <a onClick={this.closeSideNav} className="closebtn" >&times;</a>
                         <a onClick={this.showProfile} className='pointer'>restaurant profile</a>
-                        <a onClick={this.showSchedule} className='pointer'>Delivery schedule</a>
+                        <a onClick={this.showSchedule} className='pointer'>Open schedule</a>
                         <a onClick={this.showAddFood} className='pointer'>add food</a>
                         <a className='pointer'>edit food</a>
                         <a className='pointer'>delete food</a>
