@@ -27,7 +27,8 @@ class Navigation extends React.Component {
             state: address.state,
             zip: address.zip,
             longitude: address.longitude,
-            latitude: address.latitude
+            latitude: address.latitude,
+            showCart: false
         }
     }
     
@@ -56,6 +57,14 @@ class Navigation extends React.Component {
     onZipChange = (event) => { this.setState({zip: event.target.value}) }
     onLongitudeChange = (event) => { this.setState({longitude: event.target.value}) }
     onLatitudeChange = (event) => { this.setState({latitude: event.target.value}) }
+    
+    toggleCart = () => {
+        if(this.state.showCart){
+            this.setState({showCart: false});
+        }else{
+            this.setState({showCart: true});
+        }
+    }
     
     returnHome = () => {
         this.props.onOrderState(false);
@@ -172,11 +181,37 @@ class Navigation extends React.Component {
                             <a className="nav-link">ORDERS</a>
                         </li>
                         <li className="nav-item mv3">
-                            <a className="nav-link pointer">CART<span className="badge badge-light">{this.props.totalItem}</span></a>
+                            <a className="nav-link pointer" onClick={this.toggleCart}><i className='fa fa-shopping-cart f3'></i>CART<span className='badge'>{this.props.totalItem}</span></a>
                         </li>
                     </ul>
                 </nav>
                 </header>
+                { this.state.showCart === true
+                    ? <div className='container-fluid'>
+                        <div className='shopping-cart'>
+                            <div className='shopping-cart-header'>
+                                <i className="fa fa-shopping-cart cart-icon"></i><span className='badge'>{this.props.totalItem}</span>
+                                <div className="shopping-cart-total">
+                                    <span class="lighter-text">Total:</span>
+                                    <span class="main-color-text">$78.97</span>
+                                </div>
+                            </div>
+
+                            <ul className='shopping-cart-items'>
+                                <li className='clearfix'>
+                                    <img className='cartimg' src='https://s3.amazonaws.com/1.us-east-1.517.today/images/1468027353796762.jpeg' alt='item1' />
+                                    <span className='item-name'>Fried Rice</span>
+                                    <span className='item-price'>$11.99</span>
+                                    <span className='item-quantity'>Quantity: 1</span>
+                                </li>
+                            </ul>
+
+                            <button className='checkout-button'>Checkout</button>
+                        </div>
+                    </div>
+                    : <div/>
+                }
+                    
                 
                 <Modal show={this.state.editProfile} onHide={this.closeProfile} bsSize='lg'>
                     <Modal.Header closeButton>
