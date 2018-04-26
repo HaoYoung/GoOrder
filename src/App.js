@@ -330,7 +330,10 @@ class App extends Component {
                             />
                       </div>
                     : <div>
+<<<<<<< HEAD
                         this is driver page
+=======
+>>>>>>> ba020fd071379c6791a42c94f4fbc8ad399383ae
                         <DSideNav profile={this.state.rest} loadRest={this.loadRest} />
                       </div>
                   )
