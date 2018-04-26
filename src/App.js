@@ -16,7 +16,11 @@ import CShowRest from './components/ShowRest/ShowRest';
 import CMenu from './components/ShowMenu/ShowMenu';
 
 import RSideNav from './components/SideNav/SideNav';
+<<<<<<< HEAD
+import DSideNav from './components/Driver/SideNav';
+=======
 import DMain from './components/Driver/DriverMain';
+>>>>>>> a33b5b92e529e7ad79c5cd8a9097bfb3c6bcf027
 
 const particlesOptions = {
     particles: {
@@ -430,7 +434,11 @@ class App extends Component {
                             />
                       </div>
                     : <div>
+<<<<<<< HEAD
+                        <DSideNav profile={this.state.rest} loadRest={this.loadRest} />
+=======
                         <DMain />
+>>>>>>> a33b5b92e529e7ad79c5cd8a9097bfb3c6bcf027
                       </div>
                   )
               ) 
