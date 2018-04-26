@@ -183,7 +183,8 @@ const initialState = {
         zip: ''
     },
     shopping_cart: [],
-    total_item: 0
+    total_item: 0,
+    all_r_addr: []
 }
 
 class App extends Component {
@@ -313,6 +314,10 @@ class App extends Component {
         }
     }
     
+    loadAllRestAddr = (data) => {
+        this.setState({all_r_addr: data});
+    }
+    
     onRouteChange = (route) => {
         if (route === 'signout') {
             this.setState(initialState);
@@ -348,6 +353,7 @@ class App extends Component {
                             loadRestaurant={this.loadRestaurants}
                             loadAddress={this.loadCAddress}
                             loadCart={this.loadCart}
+                            loadAllRestAddr={this.loadAllRestAddr}
                             />
                         : <CRegister loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
                       )

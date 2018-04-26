@@ -49,21 +49,30 @@ class Signin extends React.Component {
                 })
                 .then(response => response.json())
                 .then(items => {
-                    if(items.length){
+                    if(items !== null){
                         this.props.loadCart(items);
                     }
                 })
+                
+                fetch('https://go-order-api.herokuapp.com/rests', {
+                    method: 'get',
+                    headers: {'Content-type': 'application/json'}
+                })
+                .then(response => response.json())
+                .then(rests => {
+                    this.props.loadRestaurant(rests);
+                })
+                
+                fetch('https://go-order-api.herokuapp.com/get_aLL_r_addr', {
+                    method: 'get',
+                    headers: {'Content-type': 'application/json'}
+                })
+                .then(response => response.json())
+                .then(rests_addr => {
+                    console.log(rests_addr);
+                    this.props.loadAllRestAddr(rests_addr);
+                })
             }
-        })
-        
-        // render restaurants info
-        fetch('https://go-order-api.herokuapp.com/rests', {
-            method: 'get',
-            headers: {'Content-type': 'application/json'}
-        })
-        .then(response => response.json())
-        .then(rests => {
-            this.props.loadRestaurant(rests);
         })
     }
     
