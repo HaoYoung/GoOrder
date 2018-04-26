@@ -411,6 +411,7 @@ class App extends Component {
                                         loadMenu={this.loadMenu}
                                         loadRest={this.loadRest}
                                         loadRAddress={this.load_r_addr}
+                                        allRestAddr={this.all_r_addr}
                                     />
                                 </div>
                             </div>

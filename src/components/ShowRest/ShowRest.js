@@ -43,7 +43,7 @@ class ShowRest extends React.Component {
                             {restComponent}
                            </div>
                          : <div id='map-container'>
-                              <Map />
+                              <Map allRestAddr={this.props.allRestAddr}/>
                            </div>
                        }
                         
