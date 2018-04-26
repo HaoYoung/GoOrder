@@ -13,15 +13,6 @@ class SideNav extends React.Component {
             showSideNav: false,
             editProfile: false,
             showAddFood: false,
-<<<<<<< HEAD
-            editSchedule: false,
-            id: profile.id,
-            name: profile.name,
-            type: profile.type,
-            email: profile.email,
-            phone: profile.phone,
-            imgurl: profile.imgurl,
-=======
             editAddress: false,
             id: this.props.profile.id,
             name: this.props.profile.name,
@@ -36,7 +27,6 @@ class SideNav extends React.Component {
             zip: this.props.addr.zip,
             longitude: this.props.addr.longitude,
             latitude: this.props.addr.latitude,
->>>>>>> a33b5b92e529e7ad79c5cd8a9097bfb3c6bcf027
             dishName: '',
             dishCate: '',
             dishPrice: 0,
@@ -191,13 +181,8 @@ class SideNav extends React.Component {
     }
     
     render(){ 
-<<<<<<< HEAD
-        const { name, type, email, phone, imgurl } = this.state;
-        const { dishName, dishCate, dishPrice, dishImg, dishType,deliveryfee } = this.state;
-=======
         const { name, type, email, phone, imgurl, street, suit, city, state, zip, longitude, latitude } = this.state;
         const { dishName, dishCate, dishPrice, dishImg, dishType } = this.state;
->>>>>>> a33b5b92e529e7ad79c5cd8a9097bfb3c6bcf027
         
         this.props.dishes.map((dish) => {
              if (dishType.indexOf(dish.category) === -1) {
@@ -245,53 +230,6 @@ class SideNav extends React.Component {
                   </div>
 
                         
-                
-<<<<<<< HEAD
-                <Modal show={this.state.editProfile}>
-                    <div className="imgcontainer">
-                        <a onClick={this.closeProfile} className="close" title="Close Modal">&times;</a>
-                        <h2>See & modify your profile</h2>
-                        <hr />
-                    </div>
-                    <div className='container'>
-                        <div className='center'>
-                            <div className="fl w-third pa1">
-                                <p className='f2 ml7 pl5'>Restaurant Name:</p>
-                            </div>
-                            <div className="fl w-two-thirds pa1">
-                                <input type="text" value={name} onChange={this.onNameChange}/>
-                            </div>
-			      	    </div>
-                        <div className='row mt3'>
-			      		    <p className='f2 ml7 pl5'>Restaurant Type:</p>
-			      	        <input type="text" value={type} onChange={this.OnTypeChange} required/>
-			      	    </div>
-                        <div className='row mt3'>
-			      		    <p className='f2 ml7 pl5'>Email:</p>
-                            <p className='f2'>{email}</p>
-			      	    </div>
-                        <div className='row mt3'>
-			      		    <p className='f2 ml7 pl5'>Phone:</p>
-			      	        <input type="text" value={phone} onChange={this.OnPhoneChange} required/>
-			      	    </div>
-                        <div className='row mt3'>
-			      		    <p className='f2 ml7 pl5'>Image URL:</p>
-			      	        <input type="text" value={imgurl} onChange={this.OnImgUrlChange} required/>
-			      	    </div>
-                        <div className='mt2 ml7'>
-                            <img src={imgurl} alt='' width='350px' height='300px'/>
-                        </div>
-                
-                        <button className='submit ma3' type="submit" onClick={this.OnProfileUpdate}>submit</button>
-			            <button className='submit ma3' type="reset">reset</button>
-                    </div>
-                </Modal>
-                <Modal show={this.state.showAddFood}>
-                   <div className='container'>
-                       <div className='center'>
-                            <div className="fl w-third pa1">
-                                <p className='f3 ml4 mt2'>Dish Name:</p>
-=======
                 <Modal show={this.state.editProfile} onHide={this.closeProfile} bsSize='lg'>
                     <Modal.Header closeButton>
                         <Modal.Title><p className='f2'>See & modify your profile</p></Modal.Title>
@@ -305,7 +243,6 @@ class SideNav extends React.Component {
                                 <div className="fl w-two-thirds pa1">
                                     <input type="text" value={name} onChange={this.onNameChange}/>
                                 </div>
->>>>>>> a33b5b92e529e7ad79c5cd8a9097bfb3c6bcf027
                             </div>
                             <div className='row mt3'>
                                 <p className='f3 ml7 pl5'>Restaurant Type:</p>
@@ -527,7 +464,7 @@ class SideNav extends React.Component {
                                 <p className='f3 ml4 mt2'>Delivery Fee:</p>
                             </div>
                             <div className="fl w-two-thirds pa1">
-                                <input type="text" value={deliveryfee} onChange={this.onDNameChange}/>
+                                <input type="text" value={this.state.deliveryfee} onChange={this.onDNameChange}/>
                             </div>
                         </div>
                         
