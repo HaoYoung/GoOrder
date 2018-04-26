@@ -127,11 +127,7 @@ class SideNav extends React.Component {
                     ? <div id="mySidenavl" className="sidenavl" style={{ width: '200px'}}>
                         <a onClick={this.closeSideNav} className="closebtn" >&times;</a>
                         <a onClick={this.showProfile} className='pointer'>restaurant profile</a>
-<<<<<<< HEAD
-                        <a onClick={this.showSchedule} className='pointer'>Open schedule</a>
-=======
                         <a onClick={this.showSchedule} className='pointer'>Delivery schedule</a>
->>>>>>> ba020fd071379c6791a42c94f4fbc8ad399383ae
                         <a onClick={this.showAddFood} className='pointer'>add food</a>
                         <a className='pointer'>edit food</a>
                         <a className='pointer'>delete food</a>
