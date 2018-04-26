@@ -1,18 +1,19 @@
 import React from 'react';
 import './SideNav.css';
-import Modal from './Modal/Modal';
+//import Modal from './Modal/Modal';
+import { Modal, Button } from 'react-bootstrap';
 import ShowDish from './ShowDish/ShowDish';
-import { Button, ButtonGroup } from 'react-bootstrap';
+import { ButtonGroup } from 'react-bootstrap';
 
 class SideNav extends React.Component {
     
     constructor(props) {
         super(props);
-        const { profile } = this.props;
         this.state = {
             showSideNav: false,
             editProfile: false,
             showAddFood: false,
+<<<<<<< HEAD
             editSchedule: false,
             id: profile.id,
             name: profile.name,
@@ -20,6 +21,22 @@ class SideNav extends React.Component {
             email: profile.email,
             phone: profile.phone,
             imgurl: profile.imgurl,
+=======
+            editAddress: false,
+            id: this.props.profile.id,
+            name: this.props.profile.name,
+            type: this.props.profile.type,
+            email: this.props.profile.email,
+            phone: this.props.profile.phone,
+            imgurl: this.props.profile.imgurl,
+            street: this.props.addr.street,
+            suit: this.props.addr.suit,
+            city: this.props.addr.city,
+            state: this.props.addr.state,
+            zip: this.props.addr.zip,
+            longitude: this.props.addr.longitude,
+            latitude: this.props.addr.latitude,
+>>>>>>> a33b5b92e529e7ad79c5cd8a9097bfb3c6bcf027
             dishName: '',
             dishCate: '',
             dishPrice: 0,
@@ -34,6 +51,17 @@ class SideNav extends React.Component {
     
     showProfile = () => { this.setState({editProfile: true}) }
     closeProfile = () => { this.setState({editProfile: false}) }
+    
+    showAddress = () => { this.setState({editAddress: true}); 
+                         this.setState({street: this.props.addr.street});
+                         this.setState({suit: this.props.addr.suit});
+                         this.setState({city: this.props.addr.city});
+                         this.setState({state: this.props.addr.state});
+                         this.setState({zip: this.props.addr.zip});
+                         this.setState({longitude: this.props.addr.longitude});
+                         this.setState({latitude: this.props.addr.latitude});
+                        }
+    closeAddress = () => { this.setState({editAddress: false}); }
     
     showAddFood = () => { 
         this.setState({showAddFood: true})
@@ -60,6 +88,14 @@ class SideNav extends React.Component {
     onDPriceChange = (event) => { this.setState({dishPrice: event.target.value}) }
     onDFeeChange = (event) => { this.setState({deliveryfee: event.target.value}) }
     onDImgChange = (event) => { this.setState({dishImg: event.target.value}) }
+    
+    onStreetChange = (event) => { this.setState({street: event.target.value}) }
+    onSuitChange = (event) => { this.setState({suit: event.target.value}) }
+    onCityChange = (event) => { this.setState({city: event.target.value}) }
+    onStateChange = (event) => { this.setState({state: event.target.value}) }
+    onZipChange = (event) => { this.setState({zip: event.target.value}) }
+    onLongitudeChange = (event) => { this.setState({longitude: event.target.value}) }
+    onLatitudeChange = (event) => { this.setState({latitude: event.target.value}) }
     
     OnProfileUpdate = () => {
         fetch('https://go-order-api.herokuapp.com/restaurant_profile', {
@@ -104,9 +140,64 @@ class SideNav extends React.Component {
         })
     }
     
+    OnAddressUpdate =() => {
+        fetch('https://go-order-api.herokuapp.com/update_r_addr', {
+            method: 'post',
+            headers: {'Content-type': 'application/json'},
+            body: JSON.stringify({
+                id: this.state.id,
+                street: this.state.street,
+                suit: this.state.suit,
+                city: this.state.city,
+                state: this.state.state,
+                zip: this.state.zip,
+                longitude: this.state.longitude,
+                latitude: this.state.latitude
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data.id){
+                this.props.loadAddress(data);
+                console.log(data);
+            }
+        })
+        .catch( err => console.log(err));
+    }
+    
+    OnAddressInsert =() => {
+        fetch('https://go-order-api.herokuapp.com/add_r_addr', {
+            method: 'post',
+            headers: {'Content-type': 'application/json'},
+            body: JSON.stringify({
+                id: this.state.id,
+                street: this.state.street,
+                suit: this.state.suit,
+                city: this.state.city,
+                state: this.state.state,
+                zip: this.state.zip,
+                longitude: this.state.longitude,
+                latitude: this.state.latitude
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data.id){
+                this.props.loadAddress(data);
+                console.log(data);
+            }
+        })
+        .catch( err => console.log(err));
+    }
+    
     render(){ 
+<<<<<<< HEAD
         const { name, type, email, phone, imgurl } = this.state;
         const { dishName, dishCate, dishPrice, dishImg, dishType,deliveryfee } = this.state;
+=======
+        const { name, type, email, phone, imgurl, street, suit, city, state, zip, longitude, latitude } = this.state;
+        const { dishName, dishCate, dishPrice, dishImg, dishType } = this.state;
+>>>>>>> a33b5b92e529e7ad79c5cd8a9097bfb3c6bcf027
         
         this.props.dishes.map((dish) => {
              if (dishType.indexOf(dish.category) === -1) {
@@ -131,6 +222,7 @@ class SideNav extends React.Component {
                         <a onClick={this.showAddFood} className='pointer'>add food</a>
                         <a className='pointer'>edit food</a>
                         <a className='pointer'>delete food</a>
+                        <a onClick={this.showAddress} className='pointer'>address</a>
                         <a href="LoginPage.html">Log out</a>
                       </div>
                     : <div />
@@ -154,6 +246,7 @@ class SideNav extends React.Component {
 
                         
                 
+<<<<<<< HEAD
                 <Modal show={this.state.editProfile}>
                     <div className="imgcontainer">
                         <a onClick={this.closeProfile} className="close" title="Close Modal">&times;</a>
@@ -198,43 +291,165 @@ class SideNav extends React.Component {
                        <div className='center'>
                             <div className="fl w-third pa1">
                                 <p className='f3 ml4 mt2'>Dish Name:</p>
+=======
+                <Modal show={this.state.editProfile} onHide={this.closeProfile} bsSize='lg'>
+                    <Modal.Header closeButton>
+                        <Modal.Title><p className='f2'>See & modify your profile</p></Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <div className='container'>
+                            <div className='center'>
+                                <div className="fl w-third pa1">
+                                    <p className='f3 ml7 pl5'>Restaurant Name:</p>
+                                </div>
+                                <div className="fl w-two-thirds pa1">
+                                    <input type="text" value={name} onChange={this.onNameChange}/>
+                                </div>
+>>>>>>> a33b5b92e529e7ad79c5cd8a9097bfb3c6bcf027
                             </div>
-                            <div className="fl w-two-thirds pa1">
-                                <input type="text" value={dishName} onChange={this.onDNameChange}/>
+                            <div className='row mt3'>
+                                <p className='f3 ml7 pl5'>Restaurant Type:</p>
+                                <input type="text" value={type} onChange={this.OnTypeChange} required/>
                             </div>
+                            <div className='row mt3'>
+                                <p className='f3 ml7 pl5'>Email:</p>
+                                <p className='f3'>{email}</p>
+                            </div>
+                            <div className='row mt3'>
+                                <p className='f3 ml7 pl5'>Phone:</p>
+                                <input type="text" value={phone} onChange={this.OnPhoneChange} required/>
+                            </div>
+                            <div className='row mt3'>
+                                <p className='f3 ml7 pl5'>Image URL:</p>
+                                <input type="text" value={imgurl} onChange={this.OnImgUrlChange} required/>
+                            </div>
+                            <div className='mt2 ml7'>
+                                <img src={imgurl} alt='' width='350px' height='300px'/>
+                            </div>
+
+                            <button className='submit ma3' type="submit" onClick={this.OnProfileUpdate}>submit</button>
+                            <button className='submit ma3' type="reset">reset</button>
                         </div>
-                        <div className='center'>
-                            <div className="fl w-third pa1">
-                                <p className='f3 ml4 mt2'>Dish Category:</p>
+                    </Modal.Body>
+                </Modal>
+                <Modal show={this.state.showAddFood} onHide={this.closeAddFood} bsSize='lg'>
+                    <Modal.Header closeButton>
+                        <Modal.Title><p className='f2'>Add Food</p></Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <div className='container'>
+                           <div className='center'>
+                                <div className="fl w-third pa1">
+                                    <p className='f3 ml4 mt2'>Dish Name:</p>
+                                </div>
+                                <div className="fl w-two-thirds pa1">
+                                    <input type="text" value={dishName} onChange={this.onDNameChange}/>
+                                </div>
                             </div>
-                            <div className="fl w-two-thirds pa1">
-                                <input type="text" value={dishCate} onChange={this.onDCategoryChange}/>
+                            <div className='center'>
+                                <div className="fl w-third pa1">
+                                    <p className='f3 ml4 mt2'>Dish Category:</p>
+                                </div>
+                                <div className="fl w-two-thirds pa1">
+                                    <input type="text" value={dishCate} onChange={this.onDCategoryChange}/>
+                                </div>
                             </div>
-                        </div>
-                        <div className='center'>
-                            <div className="fl w-third pa1">
-                                <p className='f3 ml4 mt2'>Dish Price:</p>
+                            <div className='center'>
+                                <div className="fl w-third pa1">
+                                    <p className='f3 ml4 mt2'>Dish Price:</p>
+                                </div>
+                                <div className="fl w-two-thirds pa1">
+                                    <input type="number" value={dishPrice} onChange={this.onDPriceChange}/>
+                                </div>
                             </div>
-                            <div className="fl w-two-thirds pa1">
-                                <input type="number" value={dishPrice} onChange={this.onDPriceChange}/>
+                            <div className='center'>
+                                <div className="fl w-third pa1">
+                                    <p className='f3 ml4 mt2'>Dish Image:</p>
+                                </div>
+                                <div className="fl w-two-thirds pa1">
+                                    <input type="text" value={dishImg} onChange={this.onDImgChange}/>
+                                </div>
                             </div>
-                        </div>
-                        <div className='center'>
-                            <div className="fl w-third pa1">
-                                <p className='f3 ml4 mt2'>Dish Image:</p>
-                            </div>
-                            <div className="fl w-two-thirds pa1">
-                                <input type="text" value={dishImg} onChange={this.onDImgChange}/>
-                            </div>
-                        </div>
-                       <div className='mt2 ml7'>
-                           <div className='mt2'>
-                               <img src={this.state.dishImg} alt='' width='350px' height='300px'/>
+                           <div className='mt2 ml7'>
+                               <div className='mt2'>
+                                   <img src={this.state.dishImg} alt='' width='350px' height='300px'/>
+                               </div>
                            </div>
+                            <Button onClick={this.OnAddDish}>Submit</Button>
+                            <Button onClick={this.closeAddFood}>Close</Button>
                        </div>
-                        <Button onClick={this.OnAddDish}>Submit</Button>
-                        <Button onClick={this.closeAddFood}>Close</Button>
-                   </div>
+                    </Modal.Body>
+                </Modal>
+                
+                <Modal show={this.state.editAddress} onHide={this.closeAddress} bsSize='sm'>
+                    <Modal.Header closeButton>
+                        <Modal.Title><p className='f2'>Address</p></Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                            <div className="center">
+                                <div className="fl w-third pa1">
+                                  <p className='f3 ml4 mt2'>Street:</p>
+                                </div>
+                                <div className="fl w-two-thirds pa1">
+                                  <input className='ml2' type="text" value={street} onChange={this.onStreetChange} required/>
+                                </div>
+                            </div>
+                            <div className="center">
+                                <div className="fl w-third pa1">
+                                  <p className='f3 ml4 mt2'>Suit:</p>
+                                </div>
+                                <div className="fl w-two-thirds pa1">
+                                  <input className='ml2' type="text" value={suit} onChange={this.onSuitChange}/>
+                                </div>
+                            </div>
+                            <div className="center">
+                                <div className="fl w-third pa1">
+                                  <p className='f3 ml4 mt2'>City:</p>
+                                </div>
+                                <div className="fl w-two-thirds pa1">
+                                  <input className='ml2' type="text" value={city} onChange={this.onCityChange} required/>
+                                </div>
+                            </div>
+                            <div className="center">
+                                <div className="fl w-third pa1">
+                                  <p className='f3 ml4 mt2'>State:</p>
+                                </div>
+                                <div className="fl w-two-thirds pa1">
+                                  <input className='ml2' type="text" value={state} onChange={this.onStateChange} required/>
+                                </div>
+                            </div>
+                            <div className="center">
+                                <div className="fl w-third pa1">
+                                  <p className='f3 ml4 mt2'>Zip Code:</p>
+                                </div>
+                                <div className="fl w-two-thirds pa1">
+                                  <input className='ml2' type="text" value={zip} onChange={this.onZipChange} required/>
+                                </div>
+                            </div>
+                            <div className="center">
+                                <div className="fl w-third pa1">
+                                  <p className='f3 ml4 mt2'>Longitude:</p>
+                                </div>
+                                <div className="fl w-two-thirds pa1">
+                                  <input className='ml2' type="text" value={longitude} onChange={this.onLongitudeChange} required/>
+                                </div>
+                            </div>
+                            <div className="center">
+                                <div className="fl w-third pa1">
+                                  <p className='f3 ml4 mt2'>Latitude:</p>
+                                </div>
+                                <div className="fl w-two-thirds pa1">
+                                  <input className='ml2' type="text" value={latitude} onChange={this.onLatitudeChange} required/>
+                                </div>
+                            </div>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        { this.props.addr.has === true
+                            ? <Button onClick={this.OnAddressUpdate}>Update</Button>
+                            : <Button onClick={this.OnAddressInsert}>Add</Button>
+                        }
+                        <Button onClick={this.closeAddress}>Close</Button>
+                    </Modal.Footer>
                 </Modal>
                 <Modal show={this.state.editSchedule}>
                     <div className="imgcontainer">

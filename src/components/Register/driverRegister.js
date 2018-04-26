@@ -84,7 +84,7 @@ class Register extends React.Component {
                             id="email-address"
                             onChange={this.onEmailChange}
                         />
-                      </div>
+                      </div>   
                       <div className="mt3">
                         <label className="db fw6 lh-copy f6 white" htmlFor="name">Phone</label>
                         <input 

@@ -28,35 +28,51 @@ class Signin extends React.Component {
         })
         .then(response => response.json())
         .then(user => {
-            if(user.id){
+            if(user.c_id){
                 this.props.loadUser(user);
                 this.props.onRouteChange('customer-home');
+                
+                fetch(`https://go-order-api.herokuapp.com/get_c_addr/${user.c_id}`, {
+                    method: 'get',
+                    headers: {'Content-type': 'application/json'}
+                })
+                .then(response => response.json())
+                .then(address => {
+                    if(address !== 'Not found'){
+                        this.props.loadAddress(address);
+                    }
+                })
+                
+                fetch(`https://go-order-api.herokuapp.com/getcart/${user.c_id}`, {
+                    method: 'get',
+                    headers: {'Content-type': 'application/json'}
+                })
+                .then(response => response.json())
+                .then(items => {
+                    if(items !== null){
+                        this.props.loadCart(items);
+                    }
+                })
+                
+                fetch('https://go-order-api.herokuapp.com/rests', {
+                    method: 'get',
+                    headers: {'Content-type': 'application/json'}
+                })
+                .then(response => response.json())
+                .then(rests => {
+                    this.props.loadRestaurant(rests);
+                })
+                
+                fetch('https://go-order-api.herokuapp.com/get_aLL_r_addr', {
+                    method: 'get',
+                    headers: {'Content-type': 'application/json'}
+                })
+                .then(response => response.json())
+                .then(rests_addr => {
+                    console.log(rests_addr);
+                    this.props.loadAllRestAddr(rests_addr);
+                })
             }
-        })
-        
-        // render customer address info
-        fetch('https://go-order-api.herokuapp.com/get_addr', {
-            method: 'post',
-            headers: {'Content-type': 'application/json'},
-            body: JSON.stringify({
-                email: this.state.signInEmail
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if(data !== 'Not found'){
-                this.props.loadAddress(data);
-            }
-        })
-        
-        // render restaurants info
-        fetch('https://go-order-api.herokuapp.com/rests', {
-            method: 'get',
-            headers: {'Content-type': 'application/json'}
-        })
-        .then(response => response.json())
-        .then(rests => {
-            this.props.loadRestaurant(rests);
         })
     }
     

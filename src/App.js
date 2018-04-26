@@ -13,9 +13,14 @@ import CNavigation from './components/Navigation/NavBar';
 import CSideFilter from './components/SideFilter/SideFilter';
 import CFoodBar from './components/FoodBar/FoodBar';
 import CShowRest from './components/ShowRest/ShowRest';
+import CMenu from './components/ShowMenu/ShowMenu';
 
 import RSideNav from './components/SideNav/SideNav';
+<<<<<<< HEAD
 import DSideNav from './components/Driver/SideNav';
+=======
+import DMain from './components/Driver/DriverMain';
+>>>>>>> a33b5b92e529e7ad79c5cd8a9097bfb3c6bcf027
 
 const particlesOptions = {
     particles: {
@@ -156,7 +161,9 @@ const initialState = {
         suit: '',
         city: '',
         state: '',
-        zip: ''
+        zip: '',
+        longitude: 0,
+        latitude: 0,
     },
     driver: {
         id: '',
@@ -168,7 +175,20 @@ const initialState = {
         joined: ''
     },
     restaurants: [],
-    restDishes: []
+    restDishes: [],
+    orders: [],
+    onOrder: false,
+    menu: [],
+    r_addr: {
+        street: '',
+        suit: '',
+        city: '',
+        state: '',
+        zip: ''
+    },
+    shopping_cart: [],
+    total_item: 0,
+    all_r_addr: []
 }
 
 class App extends Component {
@@ -180,7 +200,7 @@ class App extends Component {
     loadUser = (data) => {
         this.setState({
             user: {
-                id: data.id,
+                id: data.c_id,
                 fname: data.fname,
                 lname: data.lname,
                 email: data.email,
@@ -193,7 +213,7 @@ class App extends Component {
     loadRest = (data) => {
         this.setState({
             rest: {
-                id: data.id,
+                id: data.r_id,
                 name: data.name,
                 email: data.email,
                 phone: data.phone,
@@ -218,16 +238,46 @@ class App extends Component {
         })
     }
     
-    loadAddress = (data) => {
+    loadCAddress = (data) => {
         this.setState({
             address: {
                 has: true,
-                id: data.id,
-                street: data.street,
-                suit: data.suit,
-                city: data.city,
-                state: data.state,
-                zip: data.zip
+                id: data.c_addr_id,
+                street: data.c_street,
+                suit: data.c_suit,
+                city: data.c_city,
+                state: data.c_state,
+                zip: data.c_zip,
+                longitude: data.c_longitude,
+                latitude: data.c_latitude
+            }
+        })
+    }
+    
+    loadRAddress = (data) => {
+        this.setState({
+            address: {
+                has: true,
+                id: data.r_addr_id,
+                street: data.r_street,
+                suit: data.r_suit,
+                city: data.r_city,
+                state: data.r_state,
+                zip: data.r_zip,
+                longitude: data.r_longitude,
+                latitude: data.r_latitude
+            }
+        })
+    }
+    
+    load_r_addr = (data) => {
+        this.setState({
+            r_addr: {
+                street: data.r_street,
+                suit: data.r_suit,
+                city: data.r_city,
+                state: data.r_state,
+                zip: data.r_zip
             }
         })
     }
@@ -244,6 +294,33 @@ class App extends Component {
         this.state.restDishes.push(data);
     }
     
+    loadOrders = (data) => {
+        this.setState({orders: data});
+    }
+    
+    loadMenu = (data) => {
+        this.setState({menu: data});
+    }
+    
+    resetMenu = () => {
+        this.setState({menu: []});
+    }
+    
+    loadCart = (data) => {
+        this.setState({shopping_cart: data});
+        if(this.state.shopping_cart.length){
+            var total = 0;
+            this.state.shopping_cart.map((item) =>{
+                total += item.quantity;
+                return null;
+            })
+            this.setState({total_item: total});
+        }
+    }
+    
+    loadAllRestAddr = (data) => {
+        this.setState({all_r_addr: data});
+    }
     
     onRouteChange = (route) => {
         if (route === 'signout') {
@@ -258,8 +335,12 @@ class App extends Component {
         this.setState({role: role, route: 'signin'});
     }
     
+    onOrderState = (bool) => {
+        this.setState({onOrder: bool});
+    }
+    
   render() {
-    const { isSignedIn, route, role } = this.state;
+    const { isSignedIn, route, role, onOrder } = this.state;
     
     return (
       <div className='App'>
@@ -274,7 +355,9 @@ class App extends Component {
                             loadUser={this.loadUser} 
                             onRouteChange={this.onRouteChange} 
                             loadRestaurant={this.loadRestaurants}
-                            loadAddress={this.loadAddress}
+                            loadAddress={this.loadCAddress}
+                            loadCart={this.loadCart}
+                            loadAllRestAddr={this.loadAllRestAddr}
                             />
                         : <CRegister loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
                       )
@@ -282,16 +365,21 @@ class App extends Component {
                         role === 'restaurant'
                         ? (
                             route === 'signin'
-                            ? <RSignin loadRest={this.loadRest} 
+                            ? <RSignin 
+                                    loadRest={this.loadRest} 
                                     onRouteChange={this.onRouteChange} 
                                     loadDishes={this.loadRestDishes}
                                     r_id={this.state.rest.id}
+                                    loadAddress={this.loadRAddress}
                                     />
                             : <RRegister loadRest={this.loadRest} onRouteChange={this.onRouteChange}/>
                           )
                         : (
                             route === 'signin'
-                            ? <DSignin loadDriver={this.loadDriver} onRouteChange={this.onRouteChange}/>
+                            ? <DSignin loadDriver={this.loadDriver} 
+                                onRouteChange={this.onRouteChange}
+                                loadOrder={this.loadOrders}
+                                />
                             : <DRegister loadDriver={this.loadDriver} onRouteChange={this.onRouteChange}/>
                           )
                       )
@@ -304,20 +392,35 @@ class App extends Component {
                        profile={this.state.user} 
                        loadUser={this.loadUser} 
                        address={this.state.address}
-                       loadAddress={this.loadAddress}
-                       onRouteChange={this.onRouteChange}
+                       loadAddress={this.loadCAddress}
+                       onOrderState={this.onOrderState}
+                       resetMenu={this.resetMenu}
+                       totalItem={this.state.total_item}
                        />
-                    <div className="container-fluid">
-                        <div className='row' style={{height: 1000}}>
-                            <div className='w-20'>
-                                <CSideFilter />
-                            </div>
-                            <div className='pl4 w-80'>
-                                <CFoodBar loadRestaurant={this.loadRestaurants}/>
-                                <CShowRest rests={this.state.restaurants}/>
+                    { onOrder === true
+                        ? <div>
+                            <CMenu menu={this.state.menu} rest={this.state.rest} r_addr={this.state.r_addr}/>
+                        </div>
+                        
+                        : <div className="container-fluid">
+                            <div className='row' style={{height: 1000}}>
+                                <div className='w-20'>
+                                    <CSideFilter />
+                                </div>
+                                <div className='pl4 w-80'>
+                                    <CFoodBar loadRestaurant={this.loadRestaurants}/>
+                                    <CShowRest 
+                                        rests={this.state.restaurants} 
+                                        onOrderState={this.onOrderState} 
+                                        loadMenu={this.loadMenu}
+                                        loadRest={this.loadRest}
+                                        loadRAddress={this.load_r_addr}
+                                        allRestAddr={this.all_r_addr}
+                                    />
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    }
                   </div>
                 : (
                     route === 'rest-home'
@@ -327,10 +430,15 @@ class App extends Component {
                             loadRest={this.loadRest} 
                             dishes={this.state.restDishes}
                             addRestDish={this.addRestDish}
+                            addr={this.state.address}
                             />
                       </div>
                     : <div>
+<<<<<<< HEAD
                         <DSideNav profile={this.state.rest} loadRest={this.loadRest} />
+=======
+                        <DMain />
+>>>>>>> a33b5b92e529e7ad79c5cd8a9097bfb3c6bcf027
                       </div>
                   )
               ) 

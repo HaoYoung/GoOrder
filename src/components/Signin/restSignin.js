@@ -28,16 +28,28 @@ class Signin extends React.Component {
         })
         .then(response => response.json())
         .then(user => {
-            if(user.id){
+            if(user.r_id){
                 this.props.loadRest(user);
                 this.props.onRouteChange('rest-home');
-                fetch(`https://go-order-api.herokuapp.com/rest_dishes/${user.id}`, {
+                fetch(`https://go-order-api.herokuapp.com/rest_dishes/${user.r_id}`, {
                     method: 'get',
                     headers: {'Content-type': 'application/json'}
                 })
                 .then(response => response.json())
                 .then(dishes => {
                     this.props.loadDishes(dishes);
+                })
+                
+                fetch(`https://go-order-api.herokuapp.com/get_r_addr/${user.r_id}`, {
+                    method: 'get',
+                    headers: {'Content-type': 'application/json'}
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if(data !== 'Not found'){
+                        console.log(data);
+                        this.props.loadAddress(data);
+                    }
                 })
             }
         })

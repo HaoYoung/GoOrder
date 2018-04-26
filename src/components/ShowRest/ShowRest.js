@@ -20,10 +20,10 @@ class ShowRest extends React.Component {
     }
     
     render(){ 
-        const { rests } = this.props;
+        const { rests, onOrderState, loadMenu, loadRest, loadRAddress } = this.props;
         
         const restComponent = rests.map((rest, i) => {
-            return <RestBox key={i} id={rest.id} name={rest.name} url={rest.imgurl}/> 
+            return <RestBox key={i} id={rest.r_id} name={rest.name} url={rest.imgurl} onOrderState={onOrderState} loadMenu={loadMenu} loadRest={loadRest} loadRAddress={loadRAddress}/> 
         })
         
         return (
@@ -43,7 +43,7 @@ class ShowRest extends React.Component {
                             {restComponent}
                            </div>
                          : <div id='map-container'>
-                              <Map />
+                              <Map allRestAddr={this.props.allRestAddr}/>
                            </div>
                        }
                         
