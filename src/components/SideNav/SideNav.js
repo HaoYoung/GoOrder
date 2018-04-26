@@ -391,7 +391,7 @@ class SideNav extends React.Component {
                 <Modal show={this.state.editSchedule}>
                     <div className="imgcontainer">
                         <a onClick={this.closeSchedule} className="close" title="Close Modal">&times;</a>
-                        <h2>See and modify restaurant's schedule</h2>
+                        <h2>See and modify restaurant schedule</h2>
                         <hr />
                     </div>
                     <div className='container'>
