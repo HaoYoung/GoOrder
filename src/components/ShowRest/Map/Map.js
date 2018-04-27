@@ -1,7 +1,6 @@
 import React from 'react';
 import { compose, withProps, withStateHandlers } from 'recompose';
 import { withScriptjs, withGoogleMap, GoogleMap, Marker,InfoWindow } from 'react-google-maps';
-//const FaAnchor = require("react-icons/lib/fa/anchor");
 
 const MyMapComponent = compose(
 	withStateHandlers(() => ({
@@ -31,7 +30,7 @@ const MyMapComponent = compose(
               onClick={props.onToggleOpen}
             >
             {props.isOpen && <InfoWindow onCloseClick={props.onToggleOpen}>
-            	<div>marker.r_name</div>
+            	<div>{marker.name}</div>
             </InfoWindow>}
           </Marker>
           ))}
