@@ -31,7 +31,8 @@ class SideNav extends React.Component {
             dishCate: '',
             dishPrice: 0,
             dishImg: '',
-            dishType: []
+            dishType: [],
+            deliveryfee: 0
         }
     }
     
@@ -58,10 +59,13 @@ class SideNav extends React.Component {
             dishName: '',
             dishCate: '',
             dishPrice: 0,
-            dishImg: ''
+            dishImg: '',
+            deliveryfee:0
             })
     }
     closeAddFood = () => { this.setState({showAddFood: false}) }
+    showSchedule =()=>{this.setState({editSchedule:true})}
+    closeSchedule = () =>{this.setState({editSchedule:false})}
     
     onNameChange = (event) => { this.setState({name: event.target.value}) }
     onEmailChange = (event) => { this.setState({email: event.target.value}) }
@@ -72,6 +76,7 @@ class SideNav extends React.Component {
     onDNameChange = (event) => { this.setState({dishName: event.target.value}) }
     onDCategoryChange = (event) => { this.setState({dishCate: event.target.value}) }
     onDPriceChange = (event) => { this.setState({dishPrice: event.target.value}) }
+    onDFeeChange = (event) => { this.setState({deliveryfee: event.target.value}) }
     onDImgChange = (event) => { this.setState({dishImg: event.target.value}) }
     
     onStreetChange = (event) => { this.setState({street: event.target.value}) }
@@ -198,6 +203,7 @@ class SideNav extends React.Component {
                     ? <div id="mySidenavl" className="sidenavl" style={{ width: '200px'}}>
                         <a onClick={this.closeSideNav} className="closebtn" >&times;</a>
                         <a onClick={this.showProfile} className='pointer'>restaurant profile</a>
+                        <a onClick={this.showSchedule} className='pointer'>Delivery schedule</a>
                         <a onClick={this.showAddFood} className='pointer'>add food</a>
                         <a className='pointer'>edit food</a>
                         <a className='pointer'>delete food</a>
@@ -224,7 +230,6 @@ class SideNav extends React.Component {
                   </div>
 
                         
-                
                 <Modal show={this.state.editProfile} onHide={this.closeProfile} bsSize='lg'>
                     <Modal.Header closeButton>
                         <Modal.Title><p className='f2'>See & modify your profile</p></Modal.Title>
@@ -382,6 +387,91 @@ class SideNav extends React.Component {
                         }
                         <Button onClick={this.closeAddress}>Close</Button>
                     </Modal.Footer>
+                </Modal>
+                <Modal show={this.state.editSchedule}>
+                    <div className="imgcontainer">
+                        <a onClick={this.closeSchedule} className="close" title="Close Modal">&times;</a>
+                        <h2>See and modify restaurant schedule</h2>
+                        <hr />
+                    </div>
+                    <div className='container'>
+                        <div className='center'>
+                            <div className="fl w-third pa1">
+                                <p className='f2 ml4 mt2'>Date:</p>
+                            </div>
+                            <div className="fl w-two-thirds pa1">
+                                <p className='f2 ml4 mt2'>Opening time</p>
+                            </div>
+			      	    </div>
+                         <div className='center'>
+                            <div className="fl w-third pa1">
+                                <p className='f2 ml4 mt2'>Monday</p>
+                            </div>
+                            <div className="fl w-two-thirds pa1">
+                                <p className='f2 ml4 mt2'>??-??</p>
+                            </div>
+			      	    </div>
+                         <div className='center'>
+                            <div className="fl w-third pa1">
+                                <p className='f2 ml4 mt2'>Tuesday</p>
+                            </div>
+                            <div className="fl w-two-thirds pa1">
+                                <p className='f2 ml4 mt2'>??-??</p>
+                            </div>
+			      	    </div>
+                         <div className='center'>
+                            <div className="fl w-third pa1">
+                                <p className='f2 ml4 mt2'>Wednesday</p>
+                            </div>
+                            <div className="fl w-two-thirds pa1">
+                                <p className='f2 ml4 mt2'>??-??</p>
+                            </div>
+			      	    </div>
+                         <div className='center'>
+                            <div className="fl w-third pa1">
+                                <p className='f2 ml4 mt2'>Thursday</p>
+                            </div>
+                            <div className="fl w-two-thirds pa1">
+                                <p className='f2 ml4 mt2'>??-??</p>
+                            </div>
+			      	    </div>
+                         <div className='center'>
+                            <div className="fl w-third pa1">
+                                <p className='f2 ml4 mt2'>Friday</p>
+                            </div>
+                            <div className="fl w-two-thirds pa1">
+                                <p className='f2 ml4 mt2'>??-??</p>
+                            </div>
+			      	    </div>
+                         <div className='center'>
+                            <div className="fl w-third pa1">
+                                <p className='f2 ml4 mt2'>Saturday</p>
+                            </div>
+                            <div className="fl w-two-thirds pa1">
+                                <p className='f2 ml4 mt2'>??-??</p>
+                            </div>
+			      	    </div>
+                         <div className='center'>
+                            <div className="fl w-third pa1">
+                                <p className='f2 ml4 mt2'>Sunday</p>
+                            </div>
+                            <div className="fl w-two-thirds pa1">
+                                <p className='f2 ml4 mt2'>??-??</p>
+                            </div>
+			      	    </div>
+                        <div className='center'>
+                            <div className="fl w-third pa1">
+                                <p className='f3 ml4 mt2'>Delivery Fee:</p>
+                            </div>
+                            <div className="fl w-two-thirds pa1">
+                                <input type="text" value={this.state.deliveryfee} onChange={this.onDNameChange}/>
+                            </div>
+                        </div>
+                        
+                        <button className='signupbtn' type="submit" onClick={this.OnProfileUpdate}>submit</button>
+			            <button className='cancelbtn' type="reset">reset</button>
+                        
+                    </div>
                 </Modal>
             </div>  
             
