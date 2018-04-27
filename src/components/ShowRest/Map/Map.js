@@ -30,7 +30,7 @@ const MyMapComponent = compose(
               onClick={props.onToggleOpen}
             >
             {props.isOpen && <InfoWindow onCloseClick={props.onToggleOpen}>
-            	<div>{marker.name}</div>
+            	<div>{marker.name} + {marker.phone}</div>
             </InfoWindow>}
           </Marker>
           ))}
