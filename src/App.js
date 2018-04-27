@@ -184,7 +184,8 @@ const initialState = {
     },
     shopping_cart: [],
     total_item: 0,
-    all_r_addr: []
+    all_r_addr: [],
+    total_price: 0
 }
 
 class App extends Component {
@@ -306,11 +307,14 @@ class App extends Component {
         this.setState({shopping_cart: data});
         if(this.state.shopping_cart.length){
             var total = 0;
+            var totalPrice = 0;
             this.state.shopping_cart.map((item) =>{
                 total += item.quantity;
+                totalPrice += item.quantity * item.price;
                 return null;
             })
             this.setState({total_item: total});
+            this.setState({total_price: totalPrice});
         }
     }
     
@@ -392,6 +396,8 @@ class App extends Component {
                        onOrderState={this.onOrderState}
                        resetMenu={this.resetMenu}
                        totalItem={this.state.total_item}
+                       totalPrice={this.state.total_price}
+                       shoppingCart={this.state.shopping_cart}
                        />
                     { onOrder === true
                         ? <div>

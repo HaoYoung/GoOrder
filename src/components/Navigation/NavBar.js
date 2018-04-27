@@ -3,6 +3,7 @@ import search from './search.png';
 import icon from './icon1.png';
 import './Navigation.css';
 import { DropdownButton, MenuItem, Modal, Button } from 'react-bootstrap';
+import CartItem from './CartItem';
 
 class Navigation extends React.Component {
     
@@ -146,6 +147,10 @@ class Navigation extends React.Component {
     render(){
         const { fname, lname, email, phone, street, suit, city, state, zip, longitude, latitude } = this.state;
         
+        const cartItemComponent = this.props.shoppingCart.map((item, i) => {
+            return <CartItem key={i} name={item.name} price={item.price} url={item.url} quantity={item.quantity}></CartItem>
+        });
+        
         return (
             <div>
                 <header className="container-fluid">
@@ -192,20 +197,11 @@ class Navigation extends React.Component {
                             <div className='shopping-cart-header'>
                                 <i className="fa fa-shopping-cart cart-icon"></i><span className='badge'>{this.props.totalItem}</span>
                                 <div className="shopping-cart-total">
-                                    <span class="lighter-text">Total:</span>
-                                    <span class="main-color-text">$78.97</span>
+                                    <span className="lighter-text">Total:</span>
+                                    <span className="main-color-text">${this.props.totalPrice}</span>
                                 </div>
                             </div>
-
-                            <ul className='shopping-cart-items'>
-                                <li className='clearfix'>
-                                    <img className='cartimg' src='https://s3.amazonaws.com/1.us-east-1.517.today/images/1468027353796762.jpeg' alt='item1' />
-                                    <span className='item-name'>Fried Rice</span>
-                                    <span className='item-price'>$11.99</span>
-                                    <span className='item-quantity'>Quantity: 1</span>
-                                </li>
-                            </ul>
-
+                            {cartItemComponent}
                             <button className='checkout-button'>Checkout</button>
                         </div>
                     </div>
