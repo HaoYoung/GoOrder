@@ -13,7 +13,7 @@ class ShowMenu extends React.Component {
     
     
     render(){ 
-        const { menu, rest, r_addr } = this.props;
+        const { menu, rest, r_addr, c_id } = this.props;
         const { dishType } = this.state;
         
         menu.map((dish) => {
@@ -35,7 +35,7 @@ class ShowMenu extends React.Component {
                        </div>
                     </div>
                     <div className='pl4 w-80'>
-                        <ShowDish types={dishType} dishes={menu}/>
+                        <ShowDish types={dishType} dishes={menu} r_id={rest.id} c_id={c_id} loadCart={this.props.loadCart}/>
                     </div>
                 </div>
             </div>

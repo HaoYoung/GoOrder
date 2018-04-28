@@ -315,6 +315,9 @@ class App extends Component {
             })
             this.setState({total_item: total});
             this.setState({total_price: totalPrice});
+        }else{
+            this.setState({total_item: 0});
+            this.setState({total_price: 0});
         }
     }
     
@@ -398,10 +401,16 @@ class App extends Component {
                        totalItem={this.state.total_item}
                        totalPrice={this.state.total_price}
                        shoppingCart={this.state.shopping_cart}
+                       loadCart={this.loadCart}
                        />
                     { onOrder === true
                         ? <div>
-                            <CMenu menu={this.state.menu} rest={this.state.rest} r_addr={this.state.r_addr}/>
+                            <CMenu 
+                                menu={this.state.menu} 
+                                rest={this.state.rest} 
+                                r_addr={this.state.r_addr} 
+                                c_id={this.state.user.id}
+                                loadCart={this.loadCart}/>
                         </div>
                         
                         : <div className="container-fluid">

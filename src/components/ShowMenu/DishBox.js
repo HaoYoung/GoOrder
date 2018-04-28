@@ -4,10 +4,10 @@ import DishCard from './DishCard';
 class DishBox extends React.Component {
     
     render(){ 
-        const { dishes, type } = this.props;
+        const { dishes, type, r_id, c_id } = this.props;
         const dishComponent = dishes.map((dish, i) => {
             if (dish.category === type) {
-                return <DishCard key={i} id={dish.id} name={dish.name} price={dish.price} url={dish.url}></DishCard>
+                return <DishCard key={i} id={dish.id} name={dish.name} price={dish.price} url={dish.url} r_id={r_id} c_id={c_id} loadCart={this.props.loadCart}></DishCard>
             } else {
                 return null;
             }

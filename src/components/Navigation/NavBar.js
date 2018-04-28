@@ -147,9 +147,13 @@ class Navigation extends React.Component {
     render(){
         const { fname, lname, email, phone, street, suit, city, state, zip, longitude, latitude } = this.state;
         
-        const cartItemComponent = this.props.shoppingCart.map((item, i) => {
-            return <CartItem key={i} name={item.name} price={item.price} url={item.url} quantity={item.quantity}></CartItem>
-        });
+        var cartItemComponent = null;
+        if(this.props.shoppingCart.length){
+            cartItemComponent = this.props.shoppingCart.map((item, i) => {
+                return <CartItem key={i} dish_id={item.dish_id} name={item.name} price={item.price} url={item.url} quantity={item.quantity} c_id={this.state.id} r_id={item.r_id} loadCart={this.props.loadCart} item_id={item.item_id}></CartItem>
+            });
+        }
+        
         
         return (
             <div>
