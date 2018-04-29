@@ -4,7 +4,7 @@ import DishBox from './DishBox';
 class ShowDish extends React.Component {
     
     render(){ 
-        const { types, dishes } = this.props;
+        const { types, dishes, r_id, c_id } = this.props;
         const typeComponent = types.map((type, i) => {
             return (
                 <div key={i}>
@@ -14,7 +14,7 @@ class ShowDish extends React.Component {
                         </div>
                     </div>
                     <div>
-                        <DishBox dishes={dishes} type={type}/>
+                        <DishBox dishes={dishes} type={type} r_id={r_id} c_id={c_id} loadCart={this.props.loadCart}/>
                     </div>
                 </div>
                 

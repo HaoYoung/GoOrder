@@ -29,7 +29,8 @@ class Navigation extends React.Component {
             zip: address.zip,
             longitude: address.longitude,
             latitude: address.latitude,
-            showCart: false
+            showCart: false,
+            orderContent: []
         }
     }
     
@@ -119,7 +120,7 @@ class Navigation extends React.Component {
         .catch( err => console.log(err));
     }
     
-    OnAddressInsert =() => {
+    OnAddressInsert = () => {
         fetch('https://go-order-api.herokuapp.com/add_c_addr', {
             method: 'post',
             headers: {'Content-type': 'application/json'},
@@ -138,18 +139,61 @@ class Navigation extends React.Component {
         .then(data => {
             if(data.id){
                 this.props.loadAddress(data);
-                console.log(data);
+                //console.log(data);
             }
         })
         .catch( err => console.log(err));
     }
     
+    onOrderSubmit = () => {
+        if(this.props.shoppingCart.length > 0){
+            var cart_content = this.props.shoppingCart.map((item, i) => {
+                return {
+                    dish_id: item.dish_id,
+                    quantity: item.quantity
+                }
+            });
+
+            fetch('https://go-order-api.herokuapp.com/place_order', {
+                method: 'post',
+                headers: {'Content-type': 'application/json'},
+                body: JSON.stringify({
+                    c_id: this.state.id,
+                    r_id: this.props.shoppingCart[0].r_id, // need to fix this, make it dynamic
+                    order_content: cart_content
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+            })
+            .catch( err => console.log(err));
+
+            //Remove all items from shopping cart
+            fetch('https://go-order-api.herokuapp.com/clear_my_cart', {
+                method: 'post',
+                headers: {'Content-type': 'application/json'},
+                body: JSON.stringify({
+                    c_id: this.state.id
+                })
+            })
+            .then(response => response.json())
+            .then(cartItem => {
+                this.props.loadCart(cartItem);
+            })
+            .catch( err => console.log(err));
+        }
+    }
+    
     render(){
         const { fname, lname, email, phone, street, suit, city, state, zip, longitude, latitude } = this.state;
         
-        const cartItemComponent = this.props.shoppingCart.map((item, i) => {
-            return <CartItem key={i} name={item.name} price={item.price} url={item.url} quantity={item.quantity}></CartItem>
-        });
+        var cartItemComponent = null;
+        if(this.props.shoppingCart.length){
+            cartItemComponent = this.props.shoppingCart.map((item, i) => {
+                return <CartItem key={i} dish_id={item.dish_id} name={item.name} price={item.price} url={item.url} quantity={item.quantity} c_id={this.state.id} r_id={item.r_id} loadCart={this.props.loadCart} item_id={item.item_id}></CartItem>
+            });
+        }
         
         return (
             <div>
@@ -163,7 +207,7 @@ class Navigation extends React.Component {
                         <li className="nav-item search mv3">
                             <div className="form-inline my-2 my-lg-0 center">
                                 <img id='searchIcon' alt='' src={search} width='30px' height='30px'/>
-                                <input id="search-input" className="f4 pa2 w-70 center" type="text" placeholder="Search Food, Restaurant..."/>
+                                <input id="search-input" className="f4 pa2 w-70 center" type="text" placeholder="Search Food, Restaurant..." onChange={this.props.searchChange}/>
                                 <button  className="w-20 grow f4 link ph3 pv2 dib white bg-light-green"> GO </button>
                             </div>
                         </li>
@@ -202,7 +246,7 @@ class Navigation extends React.Component {
                                 </div>
                             </div>
                             {cartItemComponent}
-                            <button className='checkout-button'>Checkout</button>
+                            <button className='checkout-button' onClick={this.onOrderSubmit}>Checkout</button>
                         </div>
                     </div>
                     : <div/>
