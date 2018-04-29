@@ -228,7 +228,6 @@ class SideNav extends React.Component {
                         <ShowDish types={this.state.dishType} dishes={this.props.dishes}/>
                     </div>
                   </div>
-
                 <Modal show={this.state.editProfile} onHide={this.closeProfile} bsSize='lg'>
                     <Modal.Header closeButton>
                         <Modal.Title><p className='f2'>See & modify your profile</p></Modal.Title>
@@ -390,7 +389,7 @@ class SideNav extends React.Component {
                 <Modal show={this.state.editSchedule}>
                     <div className="imgcontainer">
                         <a onClick={this.closeSchedule} className="close" title="Close Modal">&times;</a>
-                        <h2>See & modify restaurant's schedule</h2>
+                        <h2>See and modify restaurant schedule</h2>
                         <hr />
                     </div>
                     <div className='container'>

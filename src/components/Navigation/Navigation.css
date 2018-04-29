@@ -85,6 +85,7 @@ li.search {
   display: block;
   padding-top: 10px;
   font-size: 16px;
+  white-space: nowrap;
 }
 
 .item-price {

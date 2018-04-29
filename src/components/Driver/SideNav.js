@@ -2,7 +2,6 @@ import React from 'react';
 import './SideNav.css';
 import './table.css';
 import Modal from './Modal/Modal';
-import { Button, ButtonGroup } from 'react-bootstrap';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 
 const products = [{
@@ -56,11 +55,6 @@ class SideNav extends React.Component {
     
     
     render(){ 
-        const { name, type, email, phone } = this.state;
-        
-        const options = {
-          deleteBtn: this.foodHasDeliveredButton
-        };
         const selectRow = {
            mode: 'checkbox'
         };

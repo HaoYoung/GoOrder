@@ -1,8 +1,8 @@
 import React from 'react';
 import icon from './icon1.png';
 import './Navigation.css';
-import { Navbar, Nav, NavItem } from 'react-bootstrap';
-import { Button, ButtonGroup } from 'react-bootstrap';
+import { Navbar, Nav } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 
 class Navigation extends React.Component {
     
