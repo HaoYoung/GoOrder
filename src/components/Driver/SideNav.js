@@ -7,11 +7,13 @@ import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 
 const products = [{
              id: 1,
-             name: "Product1",
+             address:"2401 Highway 6 E",
+             name: "Saozi noodle",
              price: 120
             }, {
              id: 2,
-             name: "Product2",
+             address:"350 East product street",
+             name: "Chinese burger",
              price: 80
             }];
 
@@ -85,8 +87,9 @@ class SideNav extends React.Component {
                 <div className='container'>
                 
                     <BootstrapTable className='w-50' selectRow={ selectRow } data={products} options={  { noDataText: 'This is custom text for empty data' } } deleteRow>
-                        <TableHeaderColumn dataField='id' isKey={ true }>Product ID</TableHeaderColumn>
-                        <TableHeaderColumn dataField='name'>Product Name</TableHeaderColumn>
+                        <TableHeaderColumn dataField='id' isKey={ true }>Delivery ID</TableHeaderColumn>
+                        <TableHeaderColumn dataField='address'>Delivery address</TableHeaderColumn>
+                        <TableHeaderColumn dataField='name'>customer name</TableHeaderColumn>
                         <TableHeaderColumn dataField='price'>Product Price</TableHeaderColumn>
                     </BootstrapTable>
                 </div>
