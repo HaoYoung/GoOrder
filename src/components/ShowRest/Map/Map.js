@@ -20,7 +20,9 @@ const MyMapComponent = compose(
     withGoogleMap
  )((props) => 
     <GoogleMap
+
         defaultZoom={14}
+
         defaultCenter={{ lat: 41.6596790, lng: -91.5367510 }}
     >
     {props.markers.map(marker => (
@@ -30,7 +32,9 @@ const MyMapComponent = compose(
               onClick={props.onToggleOpen}
             >
             {props.isOpen && <InfoWindow onCloseClick={props.onToggleOpen}>
+
             	<div>{marker.name}  {marker.phone}</div>
+
             </InfoWindow>}
           </Marker>
           ))}

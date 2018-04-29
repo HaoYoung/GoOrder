@@ -455,7 +455,7 @@ class App extends Component {
                             />
                       </div>
                     : <div>
-                        <DSideNav profile={this.state.rest} loadRest={this.loadRest} />
+                        <DSideNav profile={this.state.rest} loadRest={this.loadRest} orders={this.state.orders}/>
                       </div>
                   )
               ) 
