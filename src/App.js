@@ -185,7 +185,8 @@ const initialState = {
     shopping_cart: [],
     total_item: 0,
     all_r_addr: [],
-    total_price: 0
+    total_price: 0,
+    searchfield: ''
 }
 
 class App extends Component {
@@ -342,8 +343,16 @@ class App extends Component {
         this.setState({onOrder: bool});
     }
     
+    onSearchChange = (event) => {
+        this.setState({ searchfield: event.target.value});
+    }
+    
   render() {
     const { isSignedIn, route, role, onOrder } = this.state;
+      
+    const filteredRests = this.state.restaurants.filter(rest => {
+        return rest.name.toLowerCase().includes(this.state.searchfield.toLowerCase());
+    })
     
     return (
       <div className='App'>
@@ -402,6 +411,7 @@ class App extends Component {
                        totalPrice={this.state.total_price}
                        shoppingCart={this.state.shopping_cart}
                        loadCart={this.loadCart}
+                       searchChange={this.onSearchChange}
                        />
                     { onOrder === true
                         ? <div>
@@ -421,7 +431,7 @@ class App extends Component {
                                 <div className='pl4 w-80'>
                                     <CFoodBar loadRestaurant={this.loadRestaurants}/>
                                     <CShowRest 
-                                        rests={this.state.restaurants} 
+                                        rests={filteredRests} 
                                         onOrderState={this.onOrderState} 
                                         loadMenu={this.loadMenu}
                                         loadRest={this.loadRest}
