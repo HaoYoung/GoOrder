@@ -228,8 +228,6 @@ class SideNav extends React.Component {
                         <ShowDish types={this.state.dishType} dishes={this.props.dishes}/>
                     </div>
                   </div>
-
-                        
                 <Modal show={this.state.editProfile} onHide={this.closeProfile} bsSize='lg'>
                     <Modal.Header closeButton>
                         <Modal.Title><p className='f2'>See & modify your profile</p></Modal.Title>

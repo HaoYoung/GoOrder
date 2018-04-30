@@ -4,15 +4,8 @@ import './table.css';
 import Modal from './Modal/Modal';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 
-const products = [{
-             id: 1,
-             name: "Product1",
-             price: 120
-            }, {
-             id: 2,
-             name: "Product2",
-             price: 80
-            }];
+
+
 
 class SideNav extends React.Component {
     constructor(props) {
@@ -22,19 +15,21 @@ class SideNav extends React.Component {
             showSideNav: false,
             editProfile: false,
             editSchedule: false,
-            id: profile.id,
-            name: profile.name,
-            type: profile.type,
-            email: profile.email,
-            phone: profile.phone
+            id: this.props.profile.id,
+            name: this.props.profile.name,
+            type: this.props.profile.type,
+            email: this.props.profile.email
+            //orderid:" "
+            
        }
     }
     
-    foodHasDeliveredButton = (onBtnClick) => {
-    return (
-      <button style={ { color: 'red' } } onClick={ onBtnClick }>Delivered</button>
-      );
-    } 
+     foodHasDeliveredButton = (onBtnClick) => {
+       return (
+          <button style={ { color: 'red' } } onClick={ onBtnClick }>Delivered!</button>
+       );
+     }
+    
     
     closeSideNav = () => { this.setState({showSideNav: false}) }
     openSideNav = (data) => { this.setState({showSideNav: true}) }
@@ -51,10 +46,22 @@ class SideNav extends React.Component {
     OnPhoneChange = (event) => { this.setState({phone: event.target.value}) }
     
     
-    
     render(){ 
+        
+        function onRowSelect(row,isselected,orderid){
+            if(isselected){
+                alert("You click the order which has the order ID:"+row.order_id +" and the customer name is: " + row.fname + " " + row.lname );
+               // orderid = row.order_id;
+            }
+        }
         const selectRow = {
-           mode: 'checkbox'
+           mode: 'checkbox',
+           bgColor:'grey',
+           onSelect: onRowSelect
+        };
+        
+        const options = {
+           deleteBtn: this.foodHasDeliveredButton
         };
     
     
@@ -64,27 +71,21 @@ class SideNav extends React.Component {
                     ? <div id="mySidenavl" className="sidenavl" style={{ width: '200px'}}>
                         <a onClick={this.closeSideNav} className="closebtn" >&times;</a>
                         <a onClick={this.showProfile} className='pointer'>Driver's Profile</a>
-                        <a onClick={this.showSchedule} className='pointer'>Delivery schedule</a>
                         <a href="LoginPage.html">Log out</a>
                       </div>
                     : <div />
                 }
                 <h2><span className='f1 pointer' onClick={this.openSideNav}>&#9776; Open</span></h2>
-            <Modal show={this.state.editSchedule}>
-                <div className="imgcontainer">
-                    <a onClick={this.closeSchedule} className="close" title="Close Modal">&times;</a>
-                    <h2>See & modify your profile</h2>
-                    <hr />
-                </div>
-                <div className='container'>
+            
                 
-                    <BootstrapTable className='w-50' selectRow={ selectRow } data={products} options={  { noDataText: 'This is custom text for empty data' } } deleteRow>
-                        <TableHeaderColumn dataField='id' isKey={ true }>Product ID</TableHeaderColumn>
-                        <TableHeaderColumn dataField='name'>Product Name</TableHeaderColumn>
-                        <TableHeaderColumn dataField='price'>Product Price</TableHeaderColumn>
+                    <BootstrapTable selectRow={ selectRow } data={this.props.orders} options={  {deleteBtn: this.foodHasDeliveredButton, noDataText: 'This is custom text for empty data' } } deleteRow>
+                        <TableHeaderColumn dataField='order_id' isKey={ true }>order id</TableHeaderColumn>
+                        <TableHeaderColumn dataField='fname'>Customer fast name</TableHeaderColumn>                  
+                        <TableHeaderColumn dataField='lname'>Customer last name</TableHeaderColumn>
+                        <TableHeaderColumn dataField='phone'>Customer phone number</TableHeaderColumn>
+                        <TableHeaderColumn dataField='c_street'>Customer address</TableHeaderColumn>
+                        <TableHeaderColumn dataField='r_street'>Restaurant address</TableHeaderColumn>
                     </BootstrapTable>
-                </div>
-            </Modal>
              
           </div>
        );
