@@ -70,22 +70,15 @@ class SideNav extends React.Component {
                     : <div />
                 }
                 <h2><span className='f1 pointer' onClick={this.openSideNav}>&#9776; Open</span></h2>
-            <Modal show={this.state.editSchedule}>
-                <div className="imgcontainer">
-                    <a onClick={this.closeSchedule} className="close" title="Close Modal">&times;</a>
-                    <h2>See & modify your profile</h2>
-                    <hr />
-                </div>
                 <div className='container'>
                 
-                    <BootstrapTable className='w-50' selectRow={ selectRow } data={products} options={  { noDataText: 'This is custom text for empty data' } } deleteRow>
-                        <TableHeaderColumn dataField='id' isKey={ true }>Product ID</TableHeaderColumn>
-                        <TableHeaderColumn dataField='name'>Product Name</TableHeaderColumn>
-                        <TableHeaderColumn dataField='price'>Product Price</TableHeaderColumn>
+                    <BootstrapTable className='w-50' selectRow={ selectRow } data={this.props.orders} options={  { noDataText: 'This is custom text for empty data' } } deleteRow>
+                        <TableHeaderColumn dataField='order_id' isKey={ true }>Order ID</TableHeaderColumn>
+                        <TableHeaderColumn dataField='fname'>Customer First Name</TableHeaderColumn>
+                        <TableHeaderColumn dataField='lname'>Customer Last Name</TableHeaderColumn>
+                        <TableHeaderColumn dataField='name'>Restaurant Name</TableHeaderColumn>
                     </BootstrapTable>
                 </div>
-            </Modal>
-             
           </div>
        );
    }
