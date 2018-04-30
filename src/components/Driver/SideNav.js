@@ -78,7 +78,7 @@ class SideNav extends React.Component {
                 <h2><span className='f1 pointer' onClick={this.openSideNav}>&#9776; Open</span></h2>           
                     <BootstrapTable selectRow={ selectRow } data={this.props.orders} options={  {deleteBtn: this.foodHasDeliveredButton, noDataText: 'This is custom text for empty data' } } deleteRow>
                         <TableHeaderColumn dataField='order_id' isKey={ true }>order id</TableHeaderColumn>
-                        <TableHeaderColumn dataField='fname'>Customer fast name</TableHeaderColumn>                  
+                        <TableHeaderColumn dataField='fname'>Customer first name</TableHeaderColumn>                  
                         <TableHeaderColumn dataField='lname'>Customer last name</TableHeaderColumn>
                         <TableHeaderColumn dataField='phone'>Customer phone number</TableHeaderColumn>
                         <TableHeaderColumn dataField='c_street'>Customer address</TableHeaderColumn>

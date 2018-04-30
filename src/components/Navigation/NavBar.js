@@ -101,13 +101,13 @@ class Navigation extends React.Component {
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify({
                 c_id: this.state.id,
-                street: this.state.street,
-                suit: this.state.suit,
-                city: this.state.city,
-                state: this.state.state,
-                zip: this.state.zip,
-                longitude: this.state.longitude,
-                latitude: this.state.latitude
+                c_street: this.state.street,
+                c_suit: this.state.suit,
+                c_city: this.state.city,
+                c_state: this.state.state,
+                c_zip: this.state.zip,
+                c_longitude: this.state.longitude,
+                c_latitude: this.state.latitude
             })
         })
         .then(response => response.json())
@@ -126,13 +126,13 @@ class Navigation extends React.Component {
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify({
                 c_id: this.state.id,
-                street: this.state.street,
-                suit: this.state.suit,
-                city: this.state.city,
-                state: this.state.state,
-                zip: this.state.zip,
-                longitude: this.state.longitude,
-                latitude: this.state.latitude
+                c_street: this.state.street,
+                c_suit: this.state.suit,
+                c_city: this.state.city,
+                c_state: this.state.state,
+                c_zip: this.state.zip,
+                c_longitude: this.state.longitude,
+                c_latitude: this.state.latitude
             })
         })
         .then(response => response.json())
