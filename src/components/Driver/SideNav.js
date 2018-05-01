@@ -1,17 +1,26 @@
 import React from 'react';
 import './SideNav.css';
 import './table.css';
+import Modal from './Modal/Modal';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
+
+
+
 
 class SideNav extends React.Component {
     constructor(props) {
-       super(props);
+    super(props);
+      const { profile } = this.props;
        this.state = {
             showSideNav: false,
             editProfile: false,
             editSchedule: false,
             id: this.props.profile.id,
-            email: this.props.profile.email
+            name: this.props.profile.name,
+            type: this.props.profile.type,
+            email: this.props.profile.email,
+            orderid[]={0}
+            
        }
     }
     
@@ -36,30 +45,23 @@ class SideNav extends React.Component {
     OnTypeChange = (event) => { this.setState({type: event.target.value}) }
     OnPhoneChange = (event) => { this.setState({phone: event.target.value}) }
     
-    onRowSelect = (row,isselected) => {
-        if(isselected){
-            alert("You click the order which has the order ID:"+row.order_id +" and the customer name is: " + row.fname + " " + row.lname );
-            fetch(`https://go-order-api.herokuapp.com/order_deliveried`, {
-                method: 'post',
-                headers: {'Content-type': 'application/json'},
-                body: JSON.stringify({
-                    d_id: this.state.id,
-                    order_id: row.order_id
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                this.props.loadOrder(data);
-            })
-        }
-    }
     
     render(){ 
         
+        function onRowSelect(row,isselected){
+            if(isselected){
+                alert("You click the order which has the order ID:"+row.order_id +" and the customer name is: " + row.fname + " " + row.lname );
+                orderid[0]=row.order_id;
+            }
+        }
         const selectRow = {
            mode: 'checkbox',
            bgColor:'grey',
-           onSelect: this.onRowSelect
+           onSelect: onRowSelect
+        };
+        
+        const options = {
+           deleteBtn: this.foodHasDeliveredButton
         };
     
     
@@ -74,7 +76,7 @@ class SideNav extends React.Component {
                     : <div />
                 }
                 <h2><span className='f1 pointer' onClick={this.openSideNav}>&#9776; Open</span></h2>           
-                    <BootstrapTable selectRow={ selectRow } data={this.props.orders} options={  { noDataText: 'This is custom text for empty data' } } >
+                    <BootstrapTable selectRow={ selectRow } data={this.props.orders} options={  {deleteBtn: this.foodHasDeliveredButton, noDataText: 'This is custom text for empty data' } } deleteRow>
                         <TableHeaderColumn dataField='order_id' isKey={ true }>order id</TableHeaderColumn>
                         <TableHeaderColumn dataField='fname'>Customer first name</TableHeaderColumn>                  
                         <TableHeaderColumn dataField='lname'>Customer last name</TableHeaderColumn>
