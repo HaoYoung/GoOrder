@@ -39,7 +39,6 @@ class Signin extends React.Component {
                 .then(data => {
                     if(data !== 'Not found'){
                         this.props.loadOrder(data);
-                        console.log(data);
                     }
                 })
             }
