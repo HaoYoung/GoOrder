@@ -36,6 +36,19 @@ class SideNav extends React.Component {
     OnTypeChange = (event) => { this.setState({type: event.target.value}) }
     OnPhoneChange = (event) => { this.setState({phone: event.target.value}) }
     
+    refreshPage = () => {
+        fetch(`https://go-order-api.herokuapp.com/orders`, {
+            method: 'get',
+            headers: {'Content-type': 'application/json'}
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data !== 'Not found'){
+                this.props.loadOrder(data);
+            }
+        })
+    }
+    
     onRowSelect = (row,isselected) => {
         if(isselected){
             alert("You click the order which has the order ID:"+row.order_id +" and the customer name is: " + row.fname + " " + row.lname );
@@ -69,6 +82,7 @@ class SideNav extends React.Component {
                     ? <div id="mySidenavl" className="sidenavl" style={{ width: '200px'}}>
                         <a onClick={this.closeSideNav} className="closebtn" >&times;</a>
                         <a onClick={this.showProfile} className='pointer'>Driver's Profile</a>
+                        <a onClick={this.refreshPage} className='pointer'>Refresh</a>
                         <a href="LoginPage.html">Log out</a>
                       </div>
                     : <div />

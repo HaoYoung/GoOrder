@@ -461,7 +461,7 @@ class App extends Component {
                             />
                       </div>
                     : <div>
-                       <DSideNav profile={this.state.driver} orders={this.state.orders} loadOrder={this.loadOrders}/>
+                       <DSideNav profile={this.state.driver} orders={this.state.orders} loadOrder={this.loadOrders} />
                       </div>
                   )
               ) 
