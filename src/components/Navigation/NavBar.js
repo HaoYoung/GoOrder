@@ -112,9 +112,9 @@ class Navigation extends React.Component {
         })
         .then(response => response.json())
         .then(data => {
-            if(data.id){
+            if(data.c_addr_id){
                 this.props.loadAddress(data);
-                console.log(data);
+                this.setState({editAddress: false});
             }
         })
         .catch( err => console.log(err));
@@ -137,9 +137,9 @@ class Navigation extends React.Component {
         })
         .then(response => response.json())
         .then(data => {
-            if(data.id){
+            if(data.c_addr_id){
                 this.props.loadAddress(data);
-                //console.log(data);
+                this.setState({editAddress: false});
             }
         })
         .catch( err => console.log(err));
@@ -242,7 +242,7 @@ class Navigation extends React.Component {
                                 <i className="fa fa-shopping-cart cart-icon"></i><span className='badge'>{this.props.totalItem}</span>
                                 <div className="shopping-cart-total">
                                     <span className="lighter-text">Total:</span>
-                                    <span className="main-color-text">${this.props.totalPrice}</span>
+                                    <span className="main-color-text">${this.props.totalPrice.toFixed(2)}</span>
                                 </div>
                             </div>
                             {cartItemComponent}

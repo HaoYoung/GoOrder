@@ -135,7 +135,7 @@ class SideNav extends React.Component {
             method: 'post',
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify({
-                id: this.state.id,
+                r_id: this.state.id,
                 street: this.state.street,
                 suit: this.state.suit,
                 city: this.state.city,
@@ -147,10 +147,8 @@ class SideNav extends React.Component {
         })
         .then(response => response.json())
         .then(data => {
-            if(data.id){
-                this.props.loadAddress(data);
-                console.log(data);
-            }
+            this.props.loadAddress(data);
+            this.setState({editAddress: false});
         })
         .catch( err => console.log(err));
     }
@@ -172,9 +170,9 @@ class SideNav extends React.Component {
         })
         .then(response => response.json())
         .then(data => {
-            if(data.id){
+            if(data.r_addr_id){
                 this.props.loadAddress(data);
-                console.log(data);
+                this.setState({editAddress: false});
             }
         })
         .catch( err => console.log(err));

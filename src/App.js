@@ -371,7 +371,12 @@ class App extends Component {
                             loadCart={this.loadCart}
                             loadAllRestAddr={this.loadAllRestAddr}
                             />
-                        : <CRegister loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
+                        : <CRegister 
+                            loadUser={this.loadUser} 
+                            onRouteChange={this.onRouteChange} 
+                            loadRestaurant={this.loadRestaurants} 
+                            loadAllRestAddr={this.loadAllRestAddr}
+                            />
                       )
                     : (
                         role === 'restaurant'
@@ -452,6 +457,7 @@ class App extends Component {
                             dishes={this.state.restDishes}
                             addRestDish={this.addRestDish}
                             addr={this.state.address}
+                            loadAddress={this.loadRAddress}
                             />
                       </div>
                     : <div>

@@ -49,6 +49,24 @@ class Register extends React.Component {
             if(user.c_id){
                 this.props.loadUser(user);
                 this.props.onRouteChange('customer-home');
+                fetch('https://go-order-api.herokuapp.com/rests', {
+                    method: 'get',
+                    headers: {'Content-type': 'application/json'}
+                })
+                .then(response => response.json())
+                .then(rests => {
+                    this.props.loadRestaurant(rests);
+                })
+                
+                fetch('https://go-order-api.herokuapp.com/get_aLL_r_addr', {
+                    method: 'get',
+                    headers: {'Content-type': 'application/json'}
+                })
+                .then(response => response.json())
+                .then(rests_addr => {
+                    console.log(rests_addr);
+                    this.props.loadAllRestAddr(rests_addr);
+                })
             }
         })
         .catch( err => console.log(err));
