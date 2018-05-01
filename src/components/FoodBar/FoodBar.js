@@ -85,7 +85,7 @@ class FoodBar extends React.Component {
                 <div className="row mt3 mb1" style={{height: '110px'}}>
                     <div className='card'>
                         <p className='pointer link dim black' id="chinese-food" onClick={this.onChineseClick}>
-                            <img alt='chinese' width='105px' height='90px' src="https://fthmb.tqn.com/h5640eOdlK-rhPQpHnGYT6zHsY4=/960x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/beef-and-vegetable-stir-fry-165955462-5834b0523df78c6f6a6af185.jpg"/>
+                            <img alt='chinese' width='105px' height='90px' src="https://img.grouponcdn.com/deal/29tsw2p5UAh1rPsQrPVztAEHbN8E/29-700x420/v1/c700x420.jpg"/>
                             <p className='f4'>Chinese</p>
                         </p>
                     </div>
